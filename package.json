@@ -8,6 +8,9 @@
     "start-electron": "cross-env PLATFORM=electron node scripts/start.js",
     "start-browser": "cross-env PLATFORM=browser node scripts/start.js",
     "rebuild-electron-main": "webpack --config ./config/webpack.config.main.js",
+    "package-link": "npm link typescript && npm link webpack",
+    "package-install": "npm install --only=production",
+    "package-submodule": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "tslint": "tslint -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'"
   },
