@@ -259,10 +259,27 @@ module.exports = {
     ],
   },
   // Delegate bundling of specified package to client of generated dist
-  externals: {
-    'react': 'commonjs react',
-    'react-dom': 'commonjs react-dom'
-  },
+  externals: [
+    {
+      'react': 'commonjs react',
+      'react-dom': 'commonjs react-dom',
+      'react-redux': 'commonjs react-redux',
+      'react-tap-event-plugin': 'commonjs react-tap-event-plugin',
+      'redux': 'commonjs redux',
+      'redux-promise': 'commonjs redux-promise',
+      'redux-thunk': 'commonjs redux-thunk',
+      'reselect': 'commonjs reselect',
+      'isomorphic-fetch-extended': 'commonjs isomorphic-fetch-extended',    
+      'csx': 'commonjs csx',
+      'csstips': 'commonjs csstips',
+    },
+    function(context, request, callback) {
+      if (/^lodash.*/.test(request)) {
+        return callback(null, 'commonjs ' + request);
+      }
+      callback();
+    },
+  ],
   plugins: [
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
