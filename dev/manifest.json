@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "bs-ui-template",
+  "name": "Create react/redux app the BrightSign way",
   "icons": [
     {
       "src": "favicon.ico",

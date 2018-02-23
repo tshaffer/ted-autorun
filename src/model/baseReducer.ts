@@ -11,7 +11,10 @@ import {
   BsUiModelBaseAction,
   BsUiModelBatchAction,
 } from './baseAction';
-import template, { isValidTemplateState } from './template';
+import {
+  templateReducer,
+  isValidTemplateState,
+} from './template';
 
 // -----------------------------------------------------------------------
 // Defaults
@@ -41,7 +44,7 @@ export const enableBatching = (
 };
 
 export const bsUiModelReducer = enableBatching(combineReducers<BsUiModelState>({
-  template,
+  template: templateReducer,
 }));
 
 // -----------------------------------------------------------------------

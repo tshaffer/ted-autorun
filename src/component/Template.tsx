@@ -20,6 +20,7 @@ const TemplateAsset = require('../asset/TemplateAsset.svg');
 // Types
 // -----------------------------------------------------------------------
 
+/** @internal */
 export interface TemplateProps {
   color: BsColor;
   onInitModel: () => any;
@@ -165,7 +166,7 @@ export class TemplateComponent extends React.Component<TemplateProps> {
         <p className={paragraphContainerStyle()}>
           See&nbsp;
           <a className={linkStyle()} href='https://typestyle.github.io'>https://typestyle.github.io</a>
-          for more info
+          &nbsp;for more info
         </p>
         <h3>Test</h3>
         <div className={codeContainerStyle()}>

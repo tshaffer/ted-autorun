@@ -12,7 +12,7 @@ import {
   BSUIMODEL_RESET,
   BsUiModelAction,
   ResetBsUiModelAction,
-  RehydrateBsUiModelAction,
+  RehydrateBsUiModelParams
 } from './baseAction';
 
 // -----------------------------------------------------------------------
@@ -59,13 +59,13 @@ Object.freeze(templatePropertyDefault);
 // Reducers
 // -----------------------------------------------------------------------
 
-export default (
+export const templatePropertyReducer = (
   state: BsUiModelTemplatePropertyState = templatePropertyDefault,
   {type, payload}: (
     UpdateTemplatePropertyAction
     | ResetTemplatePropertyAction
     | ResetBsUiModelAction
-    | RehydrateBsUiModelAction
+    | BsUiModelAction<RehydrateBsUiModelParams>
   ),
 ): BsUiModelTemplatePropertyState => {
   switch (type) {

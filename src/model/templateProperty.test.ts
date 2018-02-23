@@ -64,11 +64,12 @@ describe('templateProperty - reducer', () => {
   };
 
   it('should handle initial state', () => {
-    expect(base.default(testStateOne, base.bsUiModelResetTemplateProperty())).toMatchObject(testStateOne);
+    const resetAction = base.bsUiModelResetTemplateProperty();
+    expect(base.templatePropertyReducer(testStateOne, resetAction)).toMatchObject(testStateOne);
   });
 
   it('should handle rehydrate action state', () => {
-    expect(base.default(testStateTwo, base.bsUiModelUpdateTemplateColor(testStateOne.color)))
+    expect(base.templatePropertyReducer(testStateTwo, base.bsUiModelUpdateTemplateColor(testStateOne.color)))
       .toMatchObject(testStateOne);
   });
 

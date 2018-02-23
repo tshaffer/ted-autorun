@@ -3,7 +3,11 @@
 import { combineReducers } from 'redux';
 import { isObject } from 'lodash';
 import { BsUiModelTemplateState } from '../type';
-import property, { isValidTemplatePropertyState } from './templateProperty';
+import { BsUiModelBatchAction } from './baseAction';
+import {
+  templatePropertyReducer,
+  isValidTemplatePropertyState,
+} from './templateProperty';
 
 // -----------------------------------------------------------------------
 // Actions
@@ -21,9 +25,9 @@ import property, { isValidTemplatePropertyState } from './templateProperty';
 // Reducers
 // -----------------------------------------------------------------------
 
-export default combineReducers<BsUiModelTemplateState>({
-  property,
-});
+export const templateReducer = combineReducers<BsUiModelTemplateState>({
+  property: templatePropertyReducer,
+}) as (state: BsUiModelTemplateState, action: BsUiModelBatchAction) => BsUiModelTemplateState;
 
 // -----------------------------------------------------------------------
 // Validators
