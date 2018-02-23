@@ -2,6 +2,7 @@
   "name": "bs-ui-starter-kit",
   "version": "0.1.0",
   "private": true,
+  "typings": "./index.d.ts",
   "main": "./dist/main.js",
   "scripts": {
     "start-electron": "cross-env PLATFORM=electron node scripts/start.js",
