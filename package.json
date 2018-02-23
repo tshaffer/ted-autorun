@@ -1,5 +1,5 @@
 {
-  "name": "bs-ui-starter-kit",
+  "name": "@brightsign/bs-ui-template",
   "version": "0.1.0",
   "private": true,
   "typings": "./index.d.ts",
