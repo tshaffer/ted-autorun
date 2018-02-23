@@ -142,13 +142,5 @@
         "tsConfigFile": "./tsconfig.test.json"
       }
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
