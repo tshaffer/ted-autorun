@@ -26,6 +26,19 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+const isElectron = env.raw.PLATFORM === 'electron';
+
+let nodeStubs = {};
+if (!isElectron) {
+  nodeStubs =  {
+      dgram: 'empty',
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+      child_process: 'empty',
+  };
+}
+
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -278,12 +291,10 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
+  // Tell Webpack to provide empty mocks for them so importing them works
+  // in the browser build
+  node: nodeStubs,
+  target: isElectron 
+    ? 'electron'
+    : 'web',
 };

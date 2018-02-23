@@ -20,6 +20,18 @@ const publicPath = '/';
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+const isElectron = env.raw.PLATFORM === 'electron';
+
+let nodeStubs = {};
+if (!isElectron) {
+  nodeStubs =  {
+      dgram: 'empty',
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+      child_process: 'empty',
+  };
+}
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -54,6 +66,7 @@ module.exports = {
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
     path: paths.appDist,
+    libraryTarget: 'umd',
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
     // This does not produce a real file. It's just the virtual path that is
@@ -122,7 +135,7 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         loader: require.resolve('tslint-loader'),
         enforce: 'pre',
-        // include: paths.appDevSrc,
+        include: paths.appDevSrc,
       },
       {
         test: /\.js$/,
@@ -246,14 +259,12 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
+  // Tell Webpack to provide empty mocks for them so importing them works
+  // in the browser build
+  node: nodeStubs,
+  target: isElectron 
+    ? 'electron'
+    : 'web',
   // Turn off performance hints during development because we don't do any
   // splitting or minification in interest of speed. These warnings become
   // cumbersome.

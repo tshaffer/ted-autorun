@@ -15,6 +15,7 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 
 const fs = require('fs');
+var spawn = require('cross-spawn');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
@@ -27,12 +28,34 @@ const {
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('react-dev-utils/openBrowser');
+const getClientEnvironment = require('../config/env');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
+
+function openElectron(scriptPath, url) {
+  const extraArgs = process.argv.slice(2);
+  const child = spawn('electron', [scriptPath, ...extraArgs, '--applicationPath=' + url], {
+    stdio: 'inherit',
+  });
+  child.on('close', code => {
+    if (code !== 0) {
+      console.log();
+      console.log(
+        chalk.red(
+          'The script variable failed.'
+        )
+      );
+      console.log(chalk.cyan(scriptPath) + ' exited with code ' + code + '.');
+      console.log();
+      return;
+    }
+  });
+  return true;
+}
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appDevIndexJs])) {
@@ -74,7 +97,17 @@ choosePort(HOST, DEFAULT_PORT)
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
+      
+      const isElectron = getClientEnvironment(urls.localUrlForBrowser).raw.PLATFORM === 'electron';
+
+      if (isElectron) {
+        // Launch electron client
+        openElectron(paths.appDevElectronMain, urls.localUrlForBrowser);
+      } else {
+        // Launch browser client
+        openBrowser(urls.localUrlForBrowser);
+      }
+
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {

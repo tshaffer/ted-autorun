@@ -46,6 +46,7 @@ module.exports = {
   appDev: resolveApp('dev'),
   appHtml: resolveApp('dev/index.html'),
   appDevIndexJs: resolveApp('dev/bootstrap.tsx'),
+  appDevElectronMain: resolveApp('dev/bootstrap.main.js'),
   appProdIndexJs: resolveApp('src/index.ts'),
   appPackageJson: resolveApp('package.json'),
   appDevSrc: [resolveApp('src'), resolveApp('dev')], 
