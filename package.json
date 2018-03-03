@@ -15,6 +15,12 @@
     "tslint": "tslint -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'"
   },
   "dependencies": {},
+  "dependencies": {
+    "whatwg-fetch": "2.0.3",
+    "typestyle": "^1.5.1",
+    "csx": "^8.5.0",
+    "csstips": "^0.2.2"
+  },
   "peerDependencies": {
     "@brightsign/bscore": "^0.3.3",
     "react": "^16.2.0",
@@ -40,7 +46,7 @@
     "@types/jest": "^22.0.0",
     "@types/lodash": "^4.14.92",
     "@types/node": "^8.5.2",
-    "@types/react": "16.0.31",
+    "@types/react": "16.0.40",
     "@types/react-addons-test-utils": "^0.14.20",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
