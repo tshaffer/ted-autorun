@@ -14,9 +14,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "tslint": "tslint -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'"
   },
-  "dependencies": {},
   "dependencies": {
-    "whatwg-fetch": "2.0.3",
     "typestyle": "^1.5.1",
     "csx": "^8.5.0",
     "csstips": "^0.2.2"
@@ -31,7 +29,6 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
-    "whatwg-fetch": "2.0.3",
     "typestyle": "^1.5.1",
     "csx": "^8.5.0",
     "csstips": "^0.2.2",
