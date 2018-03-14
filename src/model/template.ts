@@ -25,6 +25,8 @@ import {
 // Reducers
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const templateReducer = combineReducers<BsUiModelTemplateState>({
   property: templatePropertyReducer,
 }) as (state: BsUiModelTemplateState, action: BsUiModelBatchAction) => BsUiModelTemplateState;
@@ -33,11 +35,15 @@ export const templateReducer = combineReducers<BsUiModelTemplateState>({
 // Validators
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const isValidTemplateState = (state: any): boolean => {
   return isObject(state)
     && state.hasOwnProperty('property') && isValidTemplatePropertyState(state.property);
 };
 
+/** @internal */
+/** @private */
 export const isValidTemplateStateShallow = (state: any): boolean => {
   return isObject(state)
     && state.hasOwnProperty('property');

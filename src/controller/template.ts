@@ -26,6 +26,8 @@ const doAsync = (): Promise<undefined> => {
 // Controller Methods
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const updateTemplateColorAsync = (): BsUiModelThunkAction<Promise<any>> => {
   return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
     return doAsync()
@@ -40,6 +42,8 @@ export const updateTemplateColorAsync = (): BsUiModelThunkAction<Promise<any>> =
   };
 };
 
+/** @internal */
+/** @private */
 export const updateTemplateColorBatch = (): BsUiModelThunkAction<BsUiModelBatchAction> => {
   return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
     const batchActions = [];

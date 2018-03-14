@@ -27,7 +27,7 @@ import {
 // -----------------------------------------------------------------------
 
 export type BsUiReducer = Reducer<BsUiModelState>;
-export const enableBatching = (
+const enableBatching = (
     reduce: (state: BsUiModelState, action: BsUiModelBaseAction | BsUiModelBatchAction) => BsUiModelState,
 ): BsUiReducer => {
   return function batchingReducer(
@@ -43,7 +43,7 @@ export const enableBatching = (
   };
 };
 
-export const bsUiModelReducer = enableBatching(combineReducers<BsUiModelState>({
+export const bsUiModelReducer: BsUiReducer = enableBatching(combineReducers<BsUiModelState>({
   template: templateReducer,
 }));
 

@@ -7,6 +7,8 @@ import {
   BsUiErrorType,
 } from '../utility/BsUiError';
 
+/** @internal */
+/** @private */
 export const bsUiModelFilterBaseState = (state: any): BsUiModelState => {
   if (state.hasOwnProperty('bsuimodel') && isValidBsUiModelStateShallow(state.bsuimodel)) {
     return state.bsuimodel as BsUiModelState;
@@ -19,6 +21,8 @@ export const bsUiModelFilterBaseState = (state: any): BsUiModelState => {
   }
 };
 
+/** @internal */
+/** @private */
 export const bsUiModelGetBaseState = (state: BsUiModelState): BsUiModelState  => {
   return bsUiModelFilterBaseState(state);
 };

@@ -4,8 +4,10 @@ import {
   isNumber,
   isObject,
 } from 'lodash';
-import { BsColor } from '@brightsign/bscore';
-import { BsUiModelTemplatePropertyState } from '../type';
+import {
+  BsUiModelTemplatePropertyState,
+  BsUiModelTemplatePropertyColorState,
+} from '../type';
 import { BsUiError, BsUiErrorType } from '../utility/BsUiError';
 import {
   BSUIMODEL_REHYDRATE,
@@ -19,11 +21,24 @@ import {
 // Actions
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const BSUIMODEL_UPDATE_TEMPLATE_PROPERTY: string = 'BSUIMODEL_UPDATE_TEMPLATE_PROPERTY';
+
+/** @internal */
+/** @private */
 export const BSUIMODEL_RESET_TEMPLATE_PROPERTY: string = 'BSUIMODEL_RESET_TEMPLATE_PROPERTY';
+
+/** @internal */
+/** @private */
 export type UpdateTemplatePropertyAction = BsUiModelAction<Partial<BsUiModelTemplatePropertyState>>;
+
+/** @internal */
+/** @private */
 export type ResetTemplatePropertyAction = BsUiModelAction<null>;
 
+/** @internal */
+/** @private */
 export const bsUiModelResetTemplateProperty = (): ResetTemplatePropertyAction => {
   return {
     type: BSUIMODEL_RESET_TEMPLATE_PROPERTY,
@@ -31,8 +46,10 @@ export const bsUiModelResetTemplateProperty = (): ResetTemplatePropertyAction =>
   };
 };
 
+/** @internal */
+/** @private */
 export const bsUiModelUpdateTemplateColor = (
-  color: BsColor,
+  color: BsUiModelTemplatePropertyColorState,
 ): UpdateTemplatePropertyAction => {
   if (!isValidColor(color)) {
     const errorMessage = `invalid color ${JSON.stringify(color)}`;
@@ -50,6 +67,8 @@ export const bsUiModelUpdateTemplateColor = (
 // Defaults
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const templatePropertyDefault: BsUiModelTemplatePropertyState = {
   color: {a: 255, r: 0, g: 0, b: 0}
 };
@@ -59,6 +78,8 @@ Object.freeze(templatePropertyDefault);
 // Reducers
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const templatePropertyReducer = (
   state: BsUiModelTemplatePropertyState = templatePropertyDefault,
   {type, payload}: (
@@ -86,6 +107,8 @@ export const templatePropertyReducer = (
 // Validators
 // -----------------------------------------------------------------------
 
+/** @internal */
+/** @private */
 export const isValidColor = (state: any): boolean => {
   return isObject(state)
     && isNumber(state.r) && state.r >= 0 && state.r <= 255
@@ -94,11 +117,15 @@ export const isValidColor = (state: any): boolean => {
     && isNumber(state.a) && state.a >= 0 && state.a <= 255;
 };
 
+/** @internal */
+/** @private */
 export const isValidTemplatePropertyState = (state: any): boolean => {
   return isObject(state)
     && state.hasOwnProperty('color') && isValidColor(state.color);
 };
 
+/** @internal */
+/** @private */
 export const isValidTemplatePropertyStateShallow = (state: any): boolean => {
   return isObject(state)
     && state.hasOwnProperty('color');

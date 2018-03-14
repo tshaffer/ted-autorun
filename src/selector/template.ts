@@ -9,11 +9,13 @@ import { BsUiModelTemplateState, BsUiModelState } from '../type';
 import { isValidTemplateStateShallow } from '../model';
 import { bsUiModelGetBaseState } from './base';
 
+/** @internal */
+/** @private */
 export const bsUiModelGetTemplateState = (state: BsUiModelState): BsUiModelTemplateState => {
   return getTemplateState(state);
 };
 
-const getTemplateState = createSelector<BsUiModelState, BsUiModelTemplateState, BsUiModelState>(
+const getTemplateState = createSelector<BsUiModelState, BsUiModelState, BsUiModelTemplateState>(
   bsUiModelGetBaseState,
   (state: BsUiModelState): BsUiModelTemplateState => {
     if (isValidTemplateStateShallow(state.template)) {

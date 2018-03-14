@@ -1,18 +1,33 @@
 /** @module Types:templateProperties */
 
-import { BsColor } from '@brightsign/bscore';
+/** @internal */
+/** @private */
+export interface BsUiModelTemplatePropertyColorState { a: number; r: number; g: number; b: number; }
 
+/** @internal */
+/** @private */
 export interface BsUiModelTemplatePropertyState {
-  color: BsColor;
+  color: BsUiModelTemplatePropertyColorState;
 }
 
-export const createTemplateProperty = (color: BsColor): BsUiModelTemplatePropertyState => {
+/** @internal */
+/** @private */
+export const createTemplateProperty = (
+  color: BsUiModelTemplatePropertyColorState,
+): BsUiModelTemplatePropertyState => {
   return {
     color
   };
 };
 
-export const createBsColor = (r: number, g: number, b: number, a: number): BsColor => {
+/** @internal */
+/** @private */
+export const createBsColor = (
+  r: number,
+  g: number,
+  b: number,
+  a: number,
+): BsUiModelTemplatePropertyColorState => {
   return {
     r,
     g,

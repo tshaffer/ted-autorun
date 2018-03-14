@@ -4,8 +4,10 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { style } from 'typestyle';
 import * as csstips from 'csstips';
 import { percent, color, rgba } from 'csx';
-import { BsColor } from '@brightsign/bscore';
-import { BsUiModelState } from '../type';
+import {
+  BsUiModelState,
+  BsUiModelTemplatePropertyColorState,
+} from '../type';
 import {
   initModel,
   resetModel,
@@ -22,7 +24,7 @@ const TemplateAsset = require('../asset/TemplateAsset.svg');
 
 /** @internal */
 export interface TemplateProps {
-  color: BsColor;
+  color: BsUiModelTemplatePropertyColorState;
   onInitModel: () => any;
   onResetModel: () => any;
   onUpdateTemplateColorAsync: () => any;
@@ -110,12 +112,12 @@ const linkStyle = () => style({
   display: 'inline',
 });
 
-const buttonStyle = (bsColor: BsColor) => style(
+const buttonStyle = (templateColor: BsUiModelTemplatePropertyColorState) => style(
   {
     margin: '0 auto',
     cursor: 'pointer',
-    backgroundColor: rgba(bsColor.r, bsColor.g, bsColor.b, bsColor.a).toString(),
-    color: rgba(bsColor.r, bsColor.g, bsColor.b, bsColor.a).invert().toString(),
+    backgroundColor: rgba(templateColor.r, templateColor.g, templateColor.b, templateColor.a).toString(),
+    color: rgba(templateColor.r, templateColor.g, templateColor.b, templateColor.a).invert().toString(),
   },
   csstips.height(50),
   csstips.width(200),

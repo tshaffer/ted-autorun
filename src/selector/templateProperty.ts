@@ -1,24 +1,26 @@
 /** @module Selector:templateProperty */
 
 import { createSelector } from 'reselect';
-import { BsColor } from '@brightsign/bscore';
 import { BsUiError, BsUiErrorType } from '../utility/BsUiError';
 import {
   BsUiModelState,
   BsUiModelTemplateState,
   BsUiModelTemplatePropertyState,
+  BsUiModelTemplatePropertyColorState,
  } from '../type';
 import { isValidTemplatePropertyStateShallow } from '../model';
 import { bsUiModelGetTemplateState } from './template';
 
+/** @internal */
+/** @private */
 export const bsUiModelGetTemplatePropertyState = (state: BsUiModelState): BsUiModelTemplatePropertyState => {
   return getTemplatePropertyState(state);
 };
 
 const getTemplatePropertyState = createSelector<
   BsUiModelState,
-  BsUiModelTemplatePropertyState,
-  BsUiModelTemplateState
+  BsUiModelTemplateState,
+  BsUiModelTemplatePropertyState
 >(
   bsUiModelGetTemplateState,
   (state: BsUiModelTemplateState): BsUiModelTemplatePropertyState => {
@@ -33,17 +35,21 @@ const getTemplatePropertyState = createSelector<
   },
 );
 
-export const bsUiModelGetTemplatePropertyColorState = (state: BsUiModelState): BsColor => {
+/** @internal */
+/** @private */
+export const bsUiModelGetTemplatePropertyColorState = (
+  state: BsUiModelState
+): BsUiModelTemplatePropertyColorState => {
   return getTemplatePropertyColor(state);
 };
 
 const getTemplatePropertyColor = createSelector<
   BsUiModelState,
-  BsColor,
-  BsUiModelTemplatePropertyState
+  BsUiModelTemplatePropertyState,
+  BsUiModelTemplatePropertyColorState
 >(
   bsUiModelGetTemplatePropertyState,
-  (state: BsUiModelTemplatePropertyState): BsColor => {
+  (state: BsUiModelTemplatePropertyState): BsUiModelTemplatePropertyColorState => {
     return state.color;
   },
 );
