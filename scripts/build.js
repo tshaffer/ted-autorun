@@ -18,12 +18,15 @@ const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
+const getClientEnvironment = require('../config/env');
 const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
+
+const isElectron = process.env.PLATFORM === 'electron';
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -43,9 +46,6 @@ if (!checkRequiredFiles([paths.appHtml, paths.appProdIndexJs])) {
 // This lets us display how much they changed later.
 measureFileSizesBeforeBuild(paths.appDist)
   .then(previousFileSizes => {
-    // Remove all content but keep the directory so that
-    // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appDist);
     // Merge with the public folder
     // Start the webpack build
     return build(previousFileSizes);
@@ -66,7 +66,7 @@ measureFileSizesBeforeBuild(paths.appDist)
             ' to the line before.\n'
         );
       } else {
-        console.log(chalk.green('Compiled successfully.\n'));
+        console.log(chalk.green('Compiled ' + (isElectron ? 'electron' : 'browser')  + ' successfully.\n'));
       }
 
       console.log('File sizes after gzip:\n');
@@ -85,7 +85,7 @@ measureFileSizesBeforeBuild(paths.appDist)
       const buildFolder = path.relative(process.cwd(), paths.appDist);
     },
     err => {
-      console.log(chalk.red('Failed to compile.\n'));
+      console.log(chalk.red('Failed to compile '+ (isElectron ? 'electron' : 'browser') +'\n'));
       printBuildError(err);
       process.exit(1);
     }
@@ -93,7 +93,7 @@ measureFileSizesBeforeBuild(paths.appDist)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  console.log('Creating an optimized production build...');
+  console.log('Creating an optimized production ' + (isElectron ? 'electron' : 'browser')  + ' build');
 
   let compiler = webpack(config);
   return new Promise((resolve, reject) => {
