@@ -17,7 +17,7 @@ const baUwDmErrorMessage: {[type: number]: string} = {
 };
 
 export class BsUiError extends Error {
-  name = 'BaUwDmError';
+  name = 'BsUiError';
   type: BsUiErrorType;
 
   constructor(type: BsUiErrorType, reason?: string) {
