@@ -7,7 +7,7 @@ export enum BsUiErrorType {
   invalidModel,
 }
 
-const baUwDmErrorMessage: {[type: number]: string} = {
+const bsUiErrorMessage: {[type: number]: string} = {
   [BsUiErrorType.unknownError]: 'Unknown error',
   [BsUiErrorType.unexpectedError]: 'Unexpected error',
   [BsUiErrorType.invalidParameters]: 'Invalid parameters',
@@ -24,9 +24,9 @@ export class BsUiError extends Error {
     super();
     this.type = type;
     if (reason) {
-      this.message = baUwDmErrorMessage[type] + ': ' + reason;
+      this.message = bsUiErrorMessage[type] + ': ' + reason;
     } else {
-      this.message = baUwDmErrorMessage[type];
+      this.message = bsUiErrorMessage[type];
     }
     Object.setPrototypeOf(this, BsUiError.prototype);
   }
