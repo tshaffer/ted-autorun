@@ -52,7 +52,7 @@
     "@types/jest": "^22.0.0",
     "@types/lodash": "^4.14.92",
     "@types/node": "^8.5.2",
-    "@types/react": "*",
+    "@types/react": "16.4.6",
     "@types/react-addons-test-utils": "^0.14.20",
     "@types/react-dom": "16.0.4",
     "@types/react-redux": "5.0.15",
