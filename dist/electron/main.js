@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lodash"), require("redux"), require("reselect"), require("csstips"), require("csx"), require("domain"), require("react"), require("react-redux"));
+		module.exports = factory(require("lodash"), require("redux"), require("reselect"), require("csstips"), require("csx"), require("domain"), require("react"), require("react-redux"), require("typesstyle"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lodash", "redux", "reselect", "csstips", "csx", "domain", "react", "react-redux"], factory);
+		define(["lodash", "redux", "reselect", "csstips", "csx", "domain", "react", "react-redux", "typesstyle"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("lodash"), require("redux"), require("reselect"), require("csstips"), require("csx"), require("domain"), require("react"), require("react-redux")) : factory(root["lodash"], root["redux"], root["reselect"], root["csstips"], root["csx"], root["domain"], root["react"], root["react-redux"]);
+		var a = typeof exports === 'object' ? factory(require("lodash"), require("redux"), require("reselect"), require("csstips"), require("csx"), require("domain"), require("react"), require("react-redux"), require("typesstyle")) : factory(root["lodash"], root["redux"], root["reselect"], root["csstips"], root["csx"], root["domain"], root["react"], root["react-redux"], root["typesstyle"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_41__, __WEBPACK_EXTERNAL_MODULE_42__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_44__, __WEBPACK_EXTERNAL_MODULE_45__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_35__, __WEBPACK_EXTERNAL_MODULE_36__, __WEBPACK_EXTERNAL_MODULE_37__, __WEBPACK_EXTERNAL_MODULE_38__, __WEBPACK_EXTERNAL_MODULE_39__, __WEBPACK_EXTERNAL_MODULE_40__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,10 +70,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -88,15 +88,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__baseAction__["d"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__baseAction__["e"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__baseAction__["f"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseReducer__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseReducer__ = __webpack_require__(27);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_1__baseReducer__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_1__baseReducer__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_1__baseReducer__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__template__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__template__ = __webpack_require__(8);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_2__template__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_2__template__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_2__template__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templateProperty__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templateProperty__ = __webpack_require__(9);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_3__templateProperty__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_3__templateProperty__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_3__templateProperty__["c"]; });
@@ -140,7 +140,7 @@ var BsUiErrorType;
     BsUiErrorType[BsUiErrorType["apiError"] = 4] = "apiError";
     BsUiErrorType[BsUiErrorType["invalidModel"] = 5] = "invalidModel";
 })(BsUiErrorType = BsUiErrorType || (BsUiErrorType = {}));
-var baUwDmErrorMessage = (_a = {},
+var bsUiErrorMessage = (_a = {},
     _a[BsUiErrorType.unknownError] = 'Unknown error',
     _a[BsUiErrorType.unexpectedError] = 'Unexpected error',
     _a[BsUiErrorType.invalidParameters] = 'Invalid parameters',
@@ -155,10 +155,10 @@ var BsUiError = /** @class */ (function (_super) {
         _this.name = 'BsUiError';
         _this.type = type;
         if (reason) {
-            _this.message = baUwDmErrorMessage[type] + ': ' + reason;
+            _this.message = bsUiErrorMessage[type] + ': ' + reason;
         }
         else {
-            _this.message = baUwDmErrorMessage[type];
+            _this.message = bsUiErrorMessage[type];
         }
         Object.setPrototypeOf(_this, BsUiError.prototype);
         return _this;
@@ -222,11 +222,11 @@ var bsUiModelResetModel = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(29);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__base__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(30);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__template__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(31);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__templateProperty__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__templateProperty__["b"]; });
 /** @module Types:index */
@@ -253,473 +253,8 @@ module.exports = require("redux");
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * The unique id is used for unique hashes.
- */
-var uniqueId = 0;
-/**
- * Tag styles with this string to get unique hashes.
- */
-exports.IS_UNIQUE = '__DO_NOT_DEDUPE_STYLE__';
-var upperCasePattern = /[A-Z]/g;
-var msPattern = /^ms-/;
-var interpolatePattern = /&/g;
-var escapePattern = /[ !#$%&()*+,./;<=>?@[\]^`{|}~"'\\]/g;
-var propLower = function (m) { return "-" + m.toLowerCase(); };
-/**
- * CSS properties that are valid unit-less numbers.
- */
-var cssNumberProperties = [
-    'animation-iteration-count',
-    'box-flex',
-    'box-flex-group',
-    'column-count',
-    'counter-increment',
-    'counter-reset',
-    'flex',
-    'flex-grow',
-    'flex-positive',
-    'flex-shrink',
-    'flex-negative',
-    'font-weight',
-    'line-clamp',
-    'line-height',
-    'opacity',
-    'order',
-    'orphans',
-    'tab-size',
-    'widows',
-    'z-index',
-    'zoom',
-    // SVG properties.
-    'fill-opacity',
-    'stroke-dashoffset',
-    'stroke-opacity',
-    'stroke-width'
-];
-/**
- * Map of css number properties.
- */
-var CSS_NUMBER = Object.create(null);
-// Add vendor prefixes to all unit-less properties.
-for (var _i = 0, _a = ['-webkit-', '-ms-', '-moz-', '-o-', '']; _i < _a.length; _i++) {
-    var prefix = _a[_i];
-    for (var _b = 0, cssNumberProperties_1 = cssNumberProperties; _b < cssNumberProperties_1.length; _b++) {
-        var property = cssNumberProperties_1[_b];
-        CSS_NUMBER[prefix + property] = true;
-    }
-}
-/**
- * Escape a CSS class name.
- */
-exports.escape = function (str) { return str.replace(escapePattern, '\\$&'); };
-/**
- * Transform a JavaScript property into a CSS property.
- */
-function hyphenate(propertyName) {
-    return propertyName
-        .replace(upperCasePattern, propLower)
-        .replace(msPattern, '-ms-'); // Internet Explorer vendor prefix.
-}
-exports.hyphenate = hyphenate;
-/**
- * Generate a hash value from a string.
- */
-function stringHash(str) {
-    var value = 5381;
-    var len = str.length;
-    while (len--)
-        value = (value * 33) ^ str.charCodeAt(len);
-    return (value >>> 0).toString(36);
-}
-exports.stringHash = stringHash;
-/**
- * Transform a style string to a CSS string.
- */
-function styleToString(key, value) {
-    if (typeof value === 'number' && value !== 0 && !CSS_NUMBER[key]) {
-        return key + ":" + value + "px";
-    }
-    return key + ":" + value;
-}
-/**
- * Sort an array of tuples by first value.
- */
-function sortTuples(value) {
-    return value.sort(function (a, b) { return a[0] > b[0] ? 1 : -1; });
-}
-/**
- * Categorize user styles.
- */
-function parseStyles(styles, hasNestedStyles) {
-    var properties = [];
-    var nestedStyles = [];
-    var isUnique = false;
-    // Sort keys before adding to styles.
-    for (var _i = 0, _a = Object.keys(styles); _i < _a.length; _i++) {
-        var key = _a[_i];
-        var value = styles[key];
-        if (value !== null && value !== undefined) {
-            if (key === exports.IS_UNIQUE) {
-                isUnique = true;
-            }
-            else if (typeof value === 'object' && !Array.isArray(value)) {
-                nestedStyles.push([key.trim(), value]);
-            }
-            else {
-                properties.push([hyphenate(key.trim()), value]);
-            }
-        }
-    }
-    return {
-        styleString: stringifyProperties(sortTuples(properties)),
-        nestedStyles: hasNestedStyles ? nestedStyles : sortTuples(nestedStyles),
-        isUnique: isUnique
-    };
-}
-/**
- * Stringify an array of property tuples.
- */
-function stringifyProperties(properties) {
-    return properties.map(function (_a) {
-        var name = _a[0], value = _a[1];
-        if (!Array.isArray(value))
-            return styleToString(name, value);
-        return value.map(function (x) { return styleToString(name, x); }).join(';');
-    }).join(';');
-}
-/**
- * Interpolate CSS selectors.
- */
-function interpolate(selector, parent) {
-    if (selector.indexOf('&') > -1) {
-        return selector.replace(interpolatePattern, parent);
-    }
-    return parent + " " + selector;
-}
-/**
- * Recursive loop building styles with deferred selectors.
- */
-function stylize(cache, selector, styles, list, parent) {
-    var _a = parseStyles(styles, !!selector), styleString = _a.styleString, nestedStyles = _a.nestedStyles, isUnique = _a.isUnique;
-    var pid = styleString;
-    if (selector.charCodeAt(0) === 64 /* @ */) {
-        var rule = cache.add(new Rule(selector, parent ? undefined : styleString, cache.hash));
-        // Nested styles support (e.g. `.foo > @media > .bar`).
-        if (styleString && parent) {
-            var style = rule.add(new Style(styleString, rule.hash, isUnique ? "u" + (++uniqueId).toString(36) : undefined));
-            list.push([parent, style]);
-        }
-        for (var _i = 0, nestedStyles_1 = nestedStyles; _i < nestedStyles_1.length; _i++) {
-            var _b = nestedStyles_1[_i], name = _b[0], value = _b[1];
-            pid += name + stylize(rule, name, value, list, parent);
-        }
-    }
-    else {
-        var key = parent ? interpolate(selector, parent) : selector;
-        if (styleString) {
-            var style = cache.add(new Style(styleString, cache.hash, isUnique ? "u" + (++uniqueId).toString(36) : undefined));
-            list.push([key, style]);
-        }
-        for (var _c = 0, nestedStyles_2 = nestedStyles; _c < nestedStyles_2.length; _c++) {
-            var _d = nestedStyles_2[_c], name = _d[0], value = _d[1];
-            pid += name + stylize(cache, name, value, list, key);
-        }
-    }
-    return pid;
-}
-/**
- * Register all styles, but collect for selector interpolation using the hash.
- */
-function composeStyles(container, selector, styles, isStyle, displayName) {
-    var cache = new Cache(container.hash);
-    var list = [];
-    var pid = stylize(cache, selector, styles, list);
-    var hash = "f" + cache.hash(pid);
-    var id = displayName ? displayName + "_" + hash : hash;
-    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
-        var _a = list_1[_i], selector_1 = _a[0], style = _a[1];
-        var key = isStyle ? interpolate(selector_1, "." + exports.escape(id)) : selector_1;
-        style.add(new Selector(key, style.hash, undefined, pid));
-    }
-    return { cache: cache, pid: pid, id: id };
-}
-/**
- * Cache to list to styles.
- */
-function join(arr) {
-    var res = '';
-    for (var i = 0; i < arr.length; i++)
-        res += arr[i];
-    return res;
-}
-/**
- * Noop changes.
- */
-var noopChanges = {
-    add: function () { return undefined; },
-    change: function () { return undefined; },
-    remove: function () { return undefined; }
-};
-/**
- * Implement a cache/event emitter.
- */
-var Cache = /** @class */ (function () {
-    function Cache(hash, changes) {
-        if (hash === void 0) { hash = stringHash; }
-        if (changes === void 0) { changes = noopChanges; }
-        this.hash = hash;
-        this.changes = changes;
-        this.sheet = [];
-        this.changeId = 0;
-        this._keys = [];
-        this._children = Object.create(null);
-        this._counters = Object.create(null);
-    }
-    Cache.prototype.add = function (style) {
-        var count = this._counters[style.id] || 0;
-        var item = this._children[style.id] || style.clone();
-        this._counters[style.id] = count + 1;
-        if (count === 0) {
-            this._children[item.id] = item;
-            this._keys.push(item.id);
-            this.sheet.push(item.getStyles());
-            this.changeId++;
-            this.changes.add(item, this._keys.length - 1);
-        }
-        else {
-            // Check if contents are different.
-            if (item.getIdentifier() !== style.getIdentifier()) {
-                throw new TypeError("Hash collision: " + style.getStyles() + " === " + item.getStyles());
-            }
-            var oldIndex = this._keys.indexOf(style.id);
-            var newIndex = this._keys.length - 1;
-            var prevChangeId = this.changeId;
-            if (oldIndex !== newIndex) {
-                this._keys.splice(oldIndex, 1);
-                this._keys.push(style.id);
-                this.changeId++;
-            }
-            if (item instanceof Cache && style instanceof Cache) {
-                var prevChangeId_1 = item.changeId;
-                item.merge(style);
-                if (item.changeId !== prevChangeId_1) {
-                    this.changeId++;
-                }
-            }
-            if (this.changeId !== prevChangeId) {
-                if (oldIndex === newIndex) {
-                    this.sheet.splice(oldIndex, 1, item.getStyles());
-                }
-                else {
-                    this.sheet.splice(oldIndex, 1);
-                    this.sheet.splice(newIndex, 0, item.getStyles());
-                }
-                this.changes.change(item, oldIndex, newIndex);
-            }
-        }
-        return item;
-    };
-    Cache.prototype.remove = function (style) {
-        var count = this._counters[style.id];
-        if (count > 0) {
-            this._counters[style.id] = count - 1;
-            var item = this._children[style.id];
-            var index = this._keys.indexOf(item.id);
-            if (count === 1) {
-                delete this._counters[style.id];
-                delete this._children[style.id];
-                this._keys.splice(index, 1);
-                this.sheet.splice(index, 1);
-                this.changeId++;
-                this.changes.remove(item, index);
-            }
-            else if (item instanceof Cache && style instanceof Cache) {
-                var prevChangeId = item.changeId;
-                item.unmerge(style);
-                if (item.changeId !== prevChangeId) {
-                    this.sheet.splice(index, 1, item.getStyles());
-                    this.changeId++;
-                    this.changes.change(item, index, index);
-                }
-            }
-        }
-    };
-    Cache.prototype.merge = function (cache) {
-        for (var _i = 0, _a = cache._keys; _i < _a.length; _i++) {
-            var id = _a[_i];
-            this.add(cache._children[id]);
-        }
-        return this;
-    };
-    Cache.prototype.unmerge = function (cache) {
-        for (var _i = 0, _a = cache._keys; _i < _a.length; _i++) {
-            var id = _a[_i];
-            this.remove(cache._children[id]);
-        }
-        return this;
-    };
-    Cache.prototype.clone = function () {
-        return new Cache(this.hash).merge(this);
-    };
-    return Cache;
-}());
-exports.Cache = Cache;
-/**
- * Selector is a dumb class made to represent nested CSS selectors.
- */
-var Selector = /** @class */ (function () {
-    function Selector(selector, hash, id, pid) {
-        if (id === void 0) { id = "s" + hash(selector); }
-        if (pid === void 0) { pid = ''; }
-        this.selector = selector;
-        this.hash = hash;
-        this.id = id;
-        this.pid = pid;
-    }
-    Selector.prototype.getStyles = function () {
-        return this.selector;
-    };
-    Selector.prototype.getIdentifier = function () {
-        return this.pid + "." + this.selector;
-    };
-    Selector.prototype.clone = function () {
-        return new Selector(this.selector, this.hash, this.id, this.pid);
-    };
-    return Selector;
-}());
-exports.Selector = Selector;
-/**
- * The style container registers a style string with selectors.
- */
-var Style = /** @class */ (function (_super) {
-    __extends(Style, _super);
-    function Style(style, hash, id) {
-        if (id === void 0) { id = "c" + hash(style); }
-        var _this = _super.call(this, hash) || this;
-        _this.style = style;
-        _this.hash = hash;
-        _this.id = id;
-        return _this;
-    }
-    Style.prototype.getStyles = function () {
-        return this.sheet.join(',') + "{" + this.style + "}";
-    };
-    Style.prototype.getIdentifier = function () {
-        return this.style;
-    };
-    Style.prototype.clone = function () {
-        return new Style(this.style, this.hash, this.id).merge(this);
-    };
-    return Style;
-}(Cache));
-exports.Style = Style;
-/**
- * Implement rule logic for style output.
- */
-var Rule = /** @class */ (function (_super) {
-    __extends(Rule, _super);
-    function Rule(rule, style, hash, id, pid) {
-        if (style === void 0) { style = ''; }
-        if (id === void 0) { id = "a" + hash(rule + "." + style); }
-        if (pid === void 0) { pid = ''; }
-        var _this = _super.call(this, hash) || this;
-        _this.rule = rule;
-        _this.style = style;
-        _this.hash = hash;
-        _this.id = id;
-        _this.pid = pid;
-        return _this;
-    }
-    Rule.prototype.getStyles = function () {
-        return this.rule + "{" + this.style + join(this.sheet) + "}";
-    };
-    Rule.prototype.getIdentifier = function () {
-        return this.pid + "." + this.rule + "." + this.style;
-    };
-    Rule.prototype.clone = function () {
-        return new Rule(this.rule, this.style, this.hash, this.id, this.pid).merge(this);
-    };
-    return Rule;
-}(Cache));
-exports.Rule = Rule;
-/**
- * The FreeStyle class implements the API for everything else.
- */
-var FreeStyle = /** @class */ (function (_super) {
-    __extends(FreeStyle, _super);
-    function FreeStyle(hash, debug, id, changes) {
-        if (hash === void 0) { hash = stringHash; }
-        if (debug === void 0) { debug = typeof process !== 'undefined' && "production" !== 'production'; }
-        if (id === void 0) { id = "f" + (++uniqueId).toString(36); }
-        var _this = _super.call(this, hash, changes) || this;
-        _this.hash = hash;
-        _this.debug = debug;
-        _this.id = id;
-        return _this;
-    }
-    FreeStyle.prototype.registerStyle = function (styles, displayName) {
-        var debugName = this.debug ? displayName : undefined;
-        var _a = composeStyles(this, '&', styles, true, debugName), cache = _a.cache, id = _a.id;
-        this.merge(cache);
-        return id;
-    };
-    FreeStyle.prototype.registerKeyframes = function (keyframes, displayName) {
-        return this.registerHashRule('@keyframes', keyframes, displayName);
-    };
-    FreeStyle.prototype.registerHashRule = function (prefix, styles, displayName) {
-        var debugName = this.debug ? displayName : undefined;
-        var _a = composeStyles(this, '', styles, false, debugName), cache = _a.cache, pid = _a.pid, id = _a.id;
-        var rule = new Rule(prefix + " " + exports.escape(id), undefined, this.hash, undefined, pid);
-        this.add(rule.merge(cache));
-        return id;
-    };
-    FreeStyle.prototype.registerRule = function (rule, styles) {
-        this.merge(composeStyles(this, rule, styles, false).cache);
-    };
-    FreeStyle.prototype.registerCss = function (styles) {
-        this.merge(composeStyles(this, '', styles, false).cache);
-    };
-    FreeStyle.prototype.getStyles = function () {
-        return join(this.sheet);
-    };
-    FreeStyle.prototype.getIdentifier = function () {
-        return this.id;
-    };
-    FreeStyle.prototype.clone = function () {
-        return new FreeStyle(this.hash, this.debug, this.id, this.changes).merge(this);
-    };
-    return FreeStyle;
-}(Cache));
-exports.FreeStyle = FreeStyle;
-/**
- * Exports a simple function to create a new instance.
- */
-function create(hash, debug, changes) {
-    return new FreeStyle(hash, debug, undefined, changes);
-}
-exports.create = create;
-//# sourceMappingURL=free-style.js.map
 
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var asap = __webpack_require__(18);
+var asap = __webpack_require__(16);
 
 function noop() {}
 
@@ -933,14 +468,14 @@ function doResolve(fn, promise) {
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(25);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__base__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__base__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(26);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__template__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__template__["b"]; });
 /** @module Controller:index */
@@ -949,7 +484,7 @@ function doResolve(fn, promise) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -960,7 +495,7 @@ function doResolve(fn, promise) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(9);
 /** @module Model:template */
 
 
@@ -999,7 +534,7 @@ var isValidTemplateStateShallow = function (state) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1108,7 +643,7 @@ var isValidTemplatePropertyStateShallow = function (state) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1141,16 +676,16 @@ var bsUiModelGetBaseState = function (state) {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(10);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__base__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__base__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__template__ = __webpack_require__(12);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__template__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateProperty__ = __webpack_require__(28);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__templateProperty__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__templateProperty__["b"]; });
 /** @module Selector:index */
@@ -1160,16 +695,16 @@ var bsUiModelGetBaseState = function (state) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bsUiModelGetTemplateState; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_reselect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utility_BsUiError__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base__ = __webpack_require__(10);
 /** @module Selector:template */
 
 
@@ -1192,114 +727,13 @@ var getTemplateState = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselec
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/** Raf for node + browser */
-exports.raf = typeof requestAnimationFrame === 'undefined'
-    ? function (cb) { return setTimeout(cb); }
-    : typeof window === 'undefined'
-        ? requestAnimationFrame
-        : requestAnimationFrame.bind(window);
-/**
- * Utility to join classes conditionally
- */
-function classes() {
-    var classes = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        classes[_i] = arguments[_i];
-    }
-    return classes.filter(function (c) { return !!c; }).join(' ');
-}
-exports.classes = classes;
-/**
- * Merges various styles into a single style object.
- * Note: if two objects have the same property the last one wins
- */
-function extend() {
-    var objects = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        objects[_i] = arguments[_i];
-    }
-    /** The final result we will return */
-    var result = {};
-    for (var _a = 0, objects_1 = objects; _a < objects_1.length; _a++) {
-        var object = objects_1[_a];
-        if (object == null || object === false) {
-            continue;
-        }
-        for (var key in object) {
-            /** Falsy values except a explicit 0 is ignored */
-            var val = object[key];
-            if (!val && val !== 0) {
-                continue;
-            }
-            /** if nested media or pseudo selector */
-            if (key === '$nest' && val) {
-                result[key] = result['$nest'] ? extend(result['$nest'], val) : val;
-            }
-            else if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
-                result[key] = result[key] ? extend(result[key], val) : val;
-            }
-            else {
-                result[key] = val;
-            }
-        }
-    }
-    return result;
-}
-exports.extend = extend;
-/**
- * Utility to help customize styles with media queries. e.g.
- * ```
- * style(
- *  media({maxWidth:500}, {color:'red'})
- * )
- * ```
- */
-exports.media = function (mediaQuery) {
-    var objects = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        objects[_i - 1] = arguments[_i];
-    }
-    var mediaQuerySections = [];
-    if (mediaQuery.type)
-        mediaQuerySections.push(mediaQuery.type);
-    if (mediaQuery.orientation)
-        mediaQuerySections.push("(orientation: " + mediaQuery.orientation + ")");
-    if (mediaQuery.minWidth)
-        mediaQuerySections.push("(min-width: " + mediaLength(mediaQuery.minWidth) + ")");
-    if (mediaQuery.maxWidth)
-        mediaQuerySections.push("(max-width: " + mediaLength(mediaQuery.maxWidth) + ")");
-    if (mediaQuery.minHeight)
-        mediaQuerySections.push("(min-height: " + mediaLength(mediaQuery.minHeight) + ")");
-    if (mediaQuery.maxHeight)
-        mediaQuerySections.push("(max-height: " + mediaLength(mediaQuery.maxHeight) + ")");
-    var stringMediaQuery = "@media " + mediaQuerySections.join(' and ');
-    var object = {
-        $nest: (_a = {},
-            _a[stringMediaQuery] = extend.apply(void 0, objects),
-            _a)
-    };
-    return object;
-    var _a;
-};
-var mediaLength = function (value) {
-    return typeof value === 'string' ? value : value + "px";
-};
-
-
-/***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("reselect");
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1309,28 +743,28 @@ if (typeof Promise === 'undefined') {
   // Rejection tracking prevents a common issue where React gets into an
   // inconsistent state due to an error, but it gets swallowed by a Promise,
   // and the user has no idea what causes React's erratic future behavior.
-  __webpack_require__(22).enable();
-  window.Promise = __webpack_require__(21);
+  __webpack_require__(20).enable();
+  window.Promise = __webpack_require__(19);
 }
 
 // fetch() polyfill for making API calls.
-__webpack_require__(40);
-__webpack_require__(24);
+__webpack_require__(34);
+__webpack_require__(22);
 
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
-Object.assign = __webpack_require__(19);
+Object.assign = __webpack_require__(17);
 
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__component__ = __webpack_require__(24);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Template", function() { return __WEBPACK_IMPORTED_MODULE_0__component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller__ = __webpack_require__(7);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "initModel", function() { return __WEBPACK_IMPORTED_MODULE_1__controller__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resetModel", function() { return __WEBPACK_IMPORTED_MODULE_1__controller__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "updateTemplateColorAsync", function() { return __WEBPACK_IMPORTED_MODULE_1__controller__["c"]; });
@@ -1357,7 +791,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isValidColor", function() { return __WEBPACK_IMPORTED_MODULE_2__model__["s"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isValidTemplatePropertyState", function() { return __WEBPACK_IMPORTED_MODULE_2__model__["t"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isValidTemplatePropertyStateShallow", function() { return __WEBPACK_IMPORTED_MODULE_2__model__["u"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__selector__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__selector__ = __webpack_require__(11);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "bsUiModelFilterBaseState", function() { return __WEBPACK_IMPORTED_MODULE_3__selector__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "bsUiModelGetBaseState", function() { return __WEBPACK_IMPORTED_MODULE_3__selector__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "bsUiModelGetTemplateState", function() { return __WEBPACK_IMPORTED_MODULE_3__selector__["c"]; });
@@ -1368,7 +802,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "createTemplate", function() { return __WEBPACK_IMPORTED_MODULE_4__type__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "createTemplateProperty", function() { return __WEBPACK_IMPORTED_MODULE_4__type__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "createBsColor", function() { return __WEBPACK_IMPORTED_MODULE_4__type__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utility__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utility__ = __webpack_require__(32);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BsUiErrorType", function() { return __WEBPACK_IMPORTED_MODULE_5__utility__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BsUiError", function() { return __WEBPACK_IMPORTED_MODULE_5__utility__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "isBsUiError", function() { return __WEBPACK_IMPORTED_MODULE_5__utility__["c"]; });
@@ -1381,7 +815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1465,7 +899,7 @@ function requestFlush() {
         if (!domain) {
             // Lazy execute the domain module.
             // Only employed if the user elects to use domains.
-            domain = __webpack_require__(43);
+            domain = __webpack_require__(37);
         }
         domain.active = process.domain = null;
     }
@@ -1489,7 +923,7 @@ function requestFlush() {
 
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1586,7 +1020,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.2
@@ -1628,7 +1062,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1636,7 +1070,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 //This file contains the ES6 extensions to the core Promises/A+ API
 
-var Promise = __webpack_require__(7);
+var Promise = __webpack_require__(6);
 
 module.exports = Promise;
 
@@ -1742,13 +1176,13 @@ Promise.prototype['catch'] = function (onRejected) {
 
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Promise = __webpack_require__(7);
+var Promise = __webpack_require__(6);
 
 var DEFAULT_WHITELIST = [
   ReferenceError,
@@ -1861,10 +1295,10 @@ function matchWhitelist(error, list) {
 }
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var now = __webpack_require__(20)
+var now = __webpack_require__(18)
   , root = typeof window === 'undefined' ? global : window
   , vendors = ['moz', 'webkit']
   , suffix = 'AnimationFrame'
@@ -1942,33 +1376,33 @@ module.exports.polyfill = function(object) {
 
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(23).polyfill()
+__webpack_require__(21).polyfill()
 
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TemplateComponent */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Template; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_typestyle__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_typestyle__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_typestyle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_typestyle__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_csstips__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_csstips__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_csstips___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_csstips__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_csx__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_csx__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_csx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_csx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controller__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__selector__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controller__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__selector__ = __webpack_require__(11);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1987,7 +1421,7 @@ var __extends = (this && this.__extends) || (function () {
 
 
 
-var TemplateAsset = __webpack_require__(39);
+var TemplateAsset = __webpack_require__(33);
 // -----------------------------------------------------------------------
 // Styles
 // -----------------------------------------------------------------------
@@ -2230,17 +1664,17 @@ var Template = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["
 
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Template__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Template__ = __webpack_require__(23);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Template__["a"]; });
 
 
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2279,7 +1713,7 @@ var resetModel = function () {
 
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2333,7 +1767,7 @@ var updateTemplateColorBatch = function () {
 
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2345,7 +1779,7 @@ var updateTemplateColorBatch = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseAction__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__template__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__template__ = __webpack_require__(8);
 /** @module Model:base */
 
 
@@ -2378,17 +1812,17 @@ var isValidBsUiModelStateShallow = function (state) {
 
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bsUiModelGetTemplatePropertyState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return bsUiModelGetTemplatePropertyColorState; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_reselect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utility_BsUiError__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__template__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__template__ = __webpack_require__(12);
 /** @module Selector:templateProperty */
 
 
@@ -2419,7 +1853,7 @@ var getTemplatePropertyColor = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2435,7 +1869,7 @@ var createModel = function (template) {
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2451,7 +1885,7 @@ var createTemplate = function (property) {
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2478,7 +1912,7 @@ var createBsColor = function (r, g, b, a) {
 
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2490,378 +1924,13 @@ var createBsColor = function (r, g, b, a) {
 
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var typestyle_1 = __webpack_require__(37);
-exports.TypeStyle = typestyle_1.TypeStyle;
-/**
- * All the CSS types in the 'types' namespace
- */
-var types = __webpack_require__(38);
-exports.types = types;
-/**
- * Export certain utilities
- */
-var utilities_1 = __webpack_require__(14);
-exports.extend = utilities_1.extend;
-exports.classes = utilities_1.classes;
-exports.media = utilities_1.media;
-/** Zero configuration, default instance of TypeStyle */
-var ts = new typestyle_1.TypeStyle({ autoGenerateTag: true });
-/** Sets the target tag where we write the css on style updates */
-exports.setStylesTarget = ts.setStylesTarget;
-/**
- * Insert `raw` CSS as a string. This is useful for e.g.
- * - third party CSS that you are customizing with template strings
- * - generating raw CSS in JavaScript
- * - reset libraries like normalize.css that you can use without loaders
- */
-exports.cssRaw = ts.cssRaw;
-/**
- * Takes CSSProperties and registers it to a global selector (body, html, etc.)
- */
-exports.cssRule = ts.cssRule;
-/**
- * Renders styles to the singleton tag imediately
- * NOTE: You should only call it on initial render to prevent any non CSS flash.
- * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
- **/
-exports.forceRenderStyles = ts.forceRenderStyles;
-/**
- * Utility function to register an @font-face
- */
-exports.fontFace = ts.fontFace;
-/**
- * Allows use to use the stylesheet in a node.js environment
- */
-exports.getStyles = ts.getStyles;
-/**
- * Takes keyframes and returns a generated animationName
- */
-exports.keyframes = ts.keyframes;
-/**
- * Helps with testing. Reinitializes FreeStyle + raw
- */
-exports.reinit = ts.reinit;
-/**
- * Takes CSSProperties and return a generated className you can use on your component
- */
-exports.style = ts.style;
-/**
- * Takes an object where property names are ideal class names and property values are CSSProperties, and
- * returns an object where property names are the same ideal class names and the property values are
- * the actual generated class names using the ideal class name as the $debugName
- */
-exports.stylesheet = ts.stylesheet;
-/**
- * Creates a new instance of TypeStyle separate from the default instance.
- *
- * - Use this for creating a different typestyle instance for a shadow dom component.
- * - Use this if you don't want an auto tag generated and you just want to collect the CSS.
- *
- * NOTE: styles aren't shared between different instances.
- */
-function createTypeStyle(target) {
-    var instance = new typestyle_1.TypeStyle({ autoGenerateTag: false });
-    if (target) {
-        instance.setStylesTarget(target);
-    }
-    return instance;
-}
-exports.createTypeStyle = createTypeStyle;
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var FreeStyle = __webpack_require__(6);
-/**
- * We need to do the following to *our* objects before passing to freestyle:
- * - For any `$nest` directive move up to FreeStyle style nesting
- * - For any `$unique` directive map to FreeStyle Unique
- * - For any `$debugName` directive return the debug name
- */
-function ensureStringObj(object) {
-    /** The final result we will return */
-    var result = {};
-    var debugName = '';
-    for (var key in object) {
-        /** Grab the value upfront */
-        var val = object[key];
-        /** TypeStyle configuration options */
-        if (key === '$unique') {
-            result[FreeStyle.IS_UNIQUE] = val;
-        }
-        else if (key === '$nest') {
-            var nested = val;
-            for (var selector in nested) {
-                var subproperties = nested[selector];
-                result[selector] = ensureStringObj(subproperties).result;
-            }
-        }
-        else if (key === '$debugName') {
-            debugName = val;
-        }
-        else {
-            result[key] = val;
-        }
-    }
-    return { result: result, debugName: debugName };
-}
-exports.ensureStringObj = ensureStringObj;
-// todo: better name here
-function explodeKeyframes(frames) {
-    var result = { $debugName: undefined, keyframes: {} };
-    for (var offset in frames) {
-        var val = frames[offset];
-        if (offset === '$debugName') {
-            result.$debugName = val;
-        }
-        else {
-            result.keyframes[offset] = val;
-        }
-    }
-    return result;
-}
-exports.explodeKeyframes = explodeKeyframes;
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var formatting_1 = __webpack_require__(36);
-var utilities_1 = __webpack_require__(14);
-var FreeStyle = __webpack_require__(6);
-/**
- * Creates an instance of free style with our options
- */
-var createFreeStyle = function () { return FreeStyle.create(
-/** Use the default hash function */
-undefined, 
-/** Preserve $debugName values */
-true); };
-/**
- * Maintains a single stylesheet and keeps it in sync with requested styles
- */
-var TypeStyle = (function () {
-    function TypeStyle(_a) {
-        var autoGenerateTag = _a.autoGenerateTag;
-        var _this = this;
-        /**
-         * Insert `raw` CSS as a string. This is useful for e.g.
-         * - third party CSS that you are customizing with template strings
-         * - generating raw CSS in JavaScript
-         * - reset libraries like normalize.css that you can use without loaders
-         */
-        this.cssRaw = function (mustBeValidCSS) {
-            if (!mustBeValidCSS) {
-                return;
-            }
-            _this._raw += mustBeValidCSS || '';
-            _this._pendingRawChange = true;
-            _this._styleUpdated();
-        };
-        /**
-         * Takes CSSProperties and registers it to a global selector (body, html, etc.)
-         */
-        this.cssRule = function (selector) {
-            var objects = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                objects[_i - 1] = arguments[_i];
-            }
-            var object = formatting_1.ensureStringObj(utilities_1.extend.apply(void 0, objects)).result;
-            _this._freeStyle.registerRule(selector, object);
-            _this._styleUpdated();
-            return;
-        };
-        /**
-         * Renders styles to the singleton tag imediately
-         * NOTE: You should only call it on initial render to prevent any non CSS flash.
-         * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
-         **/
-        this.forceRenderStyles = function () {
-            var target = _this._getTag();
-            if (!target) {
-                return;
-            }
-            target.textContent = _this.getStyles();
-        };
-        /**
-         * Utility function to register an @font-face
-         */
-        this.fontFace = function () {
-            var fontFace = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                fontFace[_i] = arguments[_i];
-            }
-            var freeStyle = _this._freeStyle;
-            for (var _a = 0, _b = fontFace; _a < _b.length; _a++) {
-                var face = _b[_a];
-                freeStyle.registerRule('@font-face', face);
-            }
-            _this._styleUpdated();
-            return;
-        };
-        /**
-         * Allows use to use the stylesheet in a node.js environment
-         */
-        this.getStyles = function () {
-            return (_this._raw || '') + _this._freeStyle.getStyles();
-        };
-        /**
-         * Takes keyframes and returns a generated animationName
-         */
-        this.keyframes = function (frames) {
-            var _a = formatting_1.explodeKeyframes(frames), keyframes = _a.keyframes, $debugName = _a.$debugName;
-            // TODO: replace $debugName with display name
-            var animationName = _this._freeStyle.registerKeyframes(keyframes, $debugName);
-            _this._styleUpdated();
-            return animationName;
-        };
-        /**
-         * Helps with testing. Reinitializes FreeStyle + raw
-         */
-        this.reinit = function () {
-            /** reinit freestyle */
-            var freeStyle = createFreeStyle();
-            _this._freeStyle = freeStyle;
-            _this._lastFreeStyleChangeId = freeStyle.changeId;
-            /** reinit raw */
-            _this._raw = '';
-            _this._pendingRawChange = false;
-            /** Clear any styles that were flushed */
-            var target = _this._getTag();
-            if (target) {
-                target.textContent = '';
-            }
-        };
-        /** Sets the target tag where we write the css on style updates */
-        this.setStylesTarget = function (tag) {
-            /** Clear any data in any previous tag */
-            if (_this._tag) {
-                _this._tag.textContent = '';
-            }
-            _this._tag = tag;
-            /** This special time buffer immediately */
-            _this.forceRenderStyles();
-        };
-        /**
-         * Takes CSSProperties and return a generated className you can use on your component
-         */
-        this.style = function () {
-            var objects = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                objects[_i] = arguments[_i];
-            }
-            var freeStyle = _this._freeStyle;
-            var _a = formatting_1.ensureStringObj(utilities_1.extend.apply(void 0, objects)), result = _a.result, debugName = _a.debugName;
-            var className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
-            _this._styleUpdated();
-            return className;
-        };
-        /**
-         * Takes an object where property names are ideal class names and property values are CSSProperties, and
-         * returns an object where property names are the same ideal class names and the property values are
-         * the actual generated class names using the ideal class name as the $debugName
-         */
-        this.stylesheet = function (classes) {
-            var classNames = Object.getOwnPropertyNames(classes);
-            var result = {};
-            for (var _i = 0, classNames_1 = classNames; _i < classNames_1.length; _i++) {
-                var className = classNames_1[_i];
-                var classDef = classes[className];
-                if (classDef) {
-                    classDef.$debugName = className;
-                    result[className] = _this.style(classDef);
-                }
-            }
-            return result;
-        };
-        var freeStyle = createFreeStyle();
-        this._autoGenerateTag = autoGenerateTag;
-        this._freeStyle = freeStyle;
-        this._lastFreeStyleChangeId = freeStyle.changeId;
-        this._pending = 0;
-        this._pendingRawChange = false;
-        this._raw = '';
-        this._tag = undefined;
-    }
-    /**
-     * Only calls cb all sync operations settle
-     */
-    TypeStyle.prototype._afterAllSync = function (cb) {
-        var _this = this;
-        this._pending++;
-        var pending = this._pending;
-        utilities_1.raf(function () {
-            if (pending !== _this._pending) {
-                return;
-            }
-            cb();
-        });
-    };
-    TypeStyle.prototype._getTag = function () {
-        if (this._tag) {
-            return this._tag;
-        }
-        if (this._autoGenerateTag) {
-            var tag = typeof window === 'undefined'
-                ? { textContent: '' }
-                : document.createElement('style');
-            if (typeof document !== 'undefined') {
-                document.head.appendChild(tag);
-            }
-            this._tag = tag;
-            return tag;
-        }
-        return undefined;
-    };
-    /** Checks if the style tag needs updating and if so queues up the change */
-    TypeStyle.prototype._styleUpdated = function () {
-        var _this = this;
-        var changeId = this._freeStyle.changeId;
-        var lastChangeId = this._lastFreeStyleChangeId;
-        if (!this._pendingRawChange && changeId === lastChangeId) {
-            return;
-        }
-        this._lastFreeStyleChangeId = changeId;
-        this._pendingRawChange = false;
-        this._afterAllSync(function () { return _this.forceRenderStyles(); });
-    };
-    return TypeStyle;
-}());
-exports.TypeStyle = TypeStyle;
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-/***/ }),
-/* 39 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgICAgPHBhdGggZD0iTTMwLDc2cTYtMTQsMTMtMjZxNi0xMiwxNC0yM3E4LTEyLDEzLTE3cTMtNCw2LTZxMS0xLDUtMnE4LTEsMTItMXExLDAsMSwxcTAsMS0xLDJxLTEzLDExLTI3LDMzcS0xNCwyMS0yNCw0NHEtNCw5LTUsMTFxLTEsMi05LDJxLTUsMC02LTFxLTEtMS01LTZxLTUtOC0xMi0xNXEtMy00LTMtNnEwLTIsNC01cTMtMiw2LTJxMywwLDgsM3E1LDQsMTAsMTR6IiBmaWxsPSJncmVlbiIgLz4KPC9zdmc+Cg=="
 
 /***/ }),
-/* 40 */
+/* 34 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -3333,41 +2402,47 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 
 
 /***/ }),
-/* 41 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("csstips");
 
 /***/ }),
-/* 42 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("csx");
 
 /***/ }),
-/* 43 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = require("domain");
 
 /***/ }),
-/* 44 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("react");
 
 /***/ }),
-/* 45 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
 
 /***/ }),
-/* 46 */
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("typesstyle");
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(16);
-module.exports = __webpack_require__(17);
+__webpack_require__(14);
+module.exports = __webpack_require__(15);
 
 
 /***/ })

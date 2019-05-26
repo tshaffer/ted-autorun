@@ -18,7 +18,10 @@ const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const getClientEnvironment = require('../config/env');
+const env = require('../config/env');
+const getClientEnvironment = env.getClientEnvironment;
+const isBrowser = env.isBrowser;
+const isStandalone = env.isStandalone;
 const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
@@ -26,7 +29,17 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 
-const isElectron = process.env.PLATFORM === 'electron';
+let appProdIndexJs = paths.appProdIndexJs;
+if (isStandalone) {
+  appProdIndexJs = paths.appProdStandaloneIndexJs;
+}
+
+let distDeploymentDir = paths.appDistElectron;;
+if (isBrowser) {
+  distDeploymentDir = paths.appDistBrowser;
+} else if (isStandalone) {
+  distDeploymentDir = paths.appDistStandalone;
+}
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -38,13 +51,13 @@ const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appProdIndexJs])) {
+if (!checkRequiredFiles([paths.appHtml, appProdIndexJs])) {
   process.exit(1);
 }
 
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
-measureFileSizesBeforeBuild(paths.appDist)
+measureFileSizesBeforeBuild(distDeploymentDir)
   .then(previousFileSizes => {
     // Merge with the public folder
     // Start the webpack build
@@ -66,14 +79,14 @@ measureFileSizesBeforeBuild(paths.appDist)
             ' to the line before.\n'
         );
       } else {
-        console.log(chalk.green('Compiled ' + (isElectron ? 'electron' : 'browser')  + ' successfully.\n'));
+        console.log(chalk.green('Compiled ' + (process.env.PLATFORM)  + ' successfully.\n'));
       }
 
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
-        paths.appDist,
+        distDeploymentDir,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
@@ -82,10 +95,10 @@ measureFileSizesBeforeBuild(paths.appDist)
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
       const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appDist);
+      const buildFolder = path.relative(process.cwd(), distDeploymentDir);
     },
     err => {
-      console.log(chalk.red('Failed to compile '+ (isElectron ? 'electron' : 'browser') +'\n'));
+      console.log(chalk.red('Failed to compile '+ (process.env.PLATFORM) +'\n'));
       printBuildError(err);
       process.exit(1);
     }
@@ -93,7 +106,7 @@ measureFileSizesBeforeBuild(paths.appDist)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  console.log('Creating an optimized production ' + (isElectron ? 'electron' : 'browser')  + ' build');
+  console.log('Creating an optimized production ' + (process.env.PLATFORM)  + ' build');
 
   let compiler = webpack(config);
   return new Promise((resolve, reject) => {
@@ -103,11 +116,6 @@ function build(previousFileSizes) {
       }
       const messages = formatWebpackMessages(stats.toJson({}, true));
       if (messages.errors.length) {
-        // Only keep the first error. Others are often indicative
-        // of the same problem, but confuse the reader with noise.
-        if (messages.errors.length > 1) {
-          messages.errors.length = 1;
-        }
         return reject(new Error(messages.errors.join('\n\n')));
       }
       if (

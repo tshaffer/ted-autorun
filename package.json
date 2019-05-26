@@ -9,17 +9,20 @@
     "url": "git@git.brightsign.biz:bs-ui-template"
   },
   "typings": "./index.d.ts",
-  "main": "./dist/main.js",
+  "main": "./dist/electron/main.js",
   "browser": {
-    "./dist/main.js": "./dist/main.browser.js"
+    "./dist/electron/main.js": "./dist/electron/main.browser.js"
   },
   "scripts": {
     "start-electron": "cross-env PLATFORM=electron node scripts/start.js",
     "start-browser": "cross-env PLATFORM=browser node scripts/start.js",
-    "rebuild-electron-main": "webpack --config ./config/webpack.config.main.js",
+    "build-dev-electron-main": "webpack --config ./config/webpack.config.main.js",
     "package-link": "npm link typescript && npm link webpack",
     "package-install": "npm install --only=production",
-    "package-submodule": "node scripts/clean.js && cross-env PLATFORM=browser node scripts/build.js && cross-env PLATFORM=electron node scripts/build.js",
+    "build-browser": "cross-env PLATFORM=browser node scripts/build.js",
+    "build-electron": "cross-env PLATFORM=electron node scripts/build.js",
+    "build-standalone": "cross-env PLATFORM=standalone node scripts/build.js",
+    "package-submodule": "node scripts/clean.js && npm run build-standalone && npm run build-browser && npm run build-electron",
     "test": "node scripts/test.js --env=jsdom",
     "tslint": "tslint -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'"
   },

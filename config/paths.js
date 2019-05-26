@@ -34,7 +34,7 @@ const getPublicUrl = appPackageJson =>
 function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
   const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : './');
   return ensureSlash(servedUrl, true);
 }
 
@@ -42,15 +42,19 @@ function getServedPath(appPackageJson) {
 module.exports = {
   dotenv: resolveApp('.env'),
   appRoot: resolveApp('./'),
-  appDist: resolveApp('dist'),
+  appDistBrowser: resolveApp('dist/browser'),
+  appDistElectron: resolveApp('dist/electron'),
+  appDistStandalone: resolveApp('dist/standalone'),
   appDev: resolveApp('dev'),
   appHtml: resolveApp('dev/index.html'),
   appDevIndexJs: resolveApp('dev/bootstrap.tsx'),
   appDevElectronMain: resolveApp('dev/bootstrap.main.js'),
   appProdIndexJs: resolveApp('src/index.ts'),
+  appProdStandaloneIndexJs: resolveApp('src/index.bootstrap.tsx'),
   appPackageJson: resolveApp('package.json'),
   appDevSrc: [resolveApp('src'), resolveApp('dev')], 
   appProdSrc: resolveApp('src'),
+  appBrightSignMock: resolveApp('src/mock'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.ts'),
   appNodeModules: resolveApp('node_modules'),

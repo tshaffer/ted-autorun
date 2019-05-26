@@ -1,0 +1,4 @@
+{
+  "main.js": "main.browser.js",
+  "main.js.map": "main.browser.js.map"
+}
