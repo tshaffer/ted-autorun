@@ -2,7 +2,7 @@
 
 import {
   isNumber,
-  isObject,
+  isNil,
 } from 'lodash';
 import {
   BsUiModelTemplatePropertyState,
@@ -110,7 +110,7 @@ export const templatePropertyReducer = (
 /** @internal */
 /** @private */
 export const isValidColor = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && isNumber(state.r) && state.r >= 0 && state.r <= 255
     && isNumber(state.g) && state.g >= 0 && state.g <= 255
     && isNumber(state.b) && state.b >= 0 && state.b <= 255
@@ -120,13 +120,13 @@ export const isValidColor = (state: any): boolean => {
 /** @internal */
 /** @private */
 export const isValidTemplatePropertyState = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('color') && isValidColor(state.color);
 };
 
 /** @internal */
 /** @private */
 export const isValidTemplatePropertyStateShallow = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('color');
 };

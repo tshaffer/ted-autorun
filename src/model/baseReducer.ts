@@ -4,7 +4,7 @@ import {
   Reducer,
   combineReducers
 } from 'redux';
-import { isObject } from 'lodash';
+import { isNil } from 'lodash';
 import { BsUiModelState } from '../type';
 import {
   BSUIMODEL_BATCH,
@@ -52,11 +52,11 @@ export const bsUiModelReducer: BsUiReducer = enableBatching(combineReducers<BsUi
 // -----------------------------------------------------------------------
 
 export const isValidBsUiModelState = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('template') && isValidTemplateState(state.template);
 };
 
 export const isValidBsUiModelStateShallow = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('template');
 };

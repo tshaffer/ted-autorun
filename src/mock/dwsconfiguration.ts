@@ -13,12 +13,12 @@ const readableConfig =  {
   authenticationList: [],
 };
 
-let writeableConfig = {
-  password: {
-    value: '',
-    obfuscated: false,
-  },
-};
+// let writeableConfig = {
+//   password: {
+//     value: '',
+//     obfuscated: false,
+//   },
+// };
 
 export default class DWSConfiguration {
   defaultConfig(): DWSConfig {
@@ -28,7 +28,7 @@ export default class DWSConfiguration {
     return Promise.resolve(readableConfig);
   }
   applyConfig(config: DWSConfigWritable): Promise<DWSResult> {
-    writeableConfig = config;
+    // writeableConfig = config;
     return Promise.resolve({ restartRequired: true });
   }
 }

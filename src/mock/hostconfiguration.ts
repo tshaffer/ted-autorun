@@ -11,16 +11,16 @@ const readableConfig =  {
   hostName: 'myplayer'
 };
 
-let writeableConfig = {
-  loginPassword: '',
-  obfuscatedLoginPassword: '',
-  proxy: '',
-  translatedProxy: '',
-  proxyBypassList: [] as string[],
-  timeServerList: ['http://time.brightsignnetwork.com'],
-  timeServerInterval: 0,
-  hostName: 'myplayer'
-};
+// let writeableConfig = {
+//   loginPassword: '',
+//   obfuscatedLoginPassword: '',
+//   proxy: '',
+//   translatedProxy: '',
+//   proxyBypassList: [] as string[],
+//   timeServerList: ['http://time.brightsignnetwork.com'],
+//   timeServerInterval: 0,
+//   hostName: 'myplayer'
+// };
 
 export default class HostConfiguration {
 
@@ -33,7 +33,7 @@ export default class HostConfiguration {
   }
 
   applyConfig(config: HostWriteableConfig) {
-    writeableConfig = config;
+    // writeableConfig = config;
     return Promise.resolve();
   }
 }

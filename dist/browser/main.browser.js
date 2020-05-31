@@ -122,15 +122,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BsUiError; });
 /* harmony export (immutable) */ __webpack_exports__["c"] = isBsUiError;
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var _a;
 var BsUiErrorType;
 (function (BsUiErrorType) {
     BsUiErrorType[BsUiErrorType["unknownError"] = 0] = "unknownError";
@@ -139,7 +143,7 @@ var BsUiErrorType;
     BsUiErrorType[BsUiErrorType["invalidOperation"] = 3] = "invalidOperation";
     BsUiErrorType[BsUiErrorType["apiError"] = 4] = "apiError";
     BsUiErrorType[BsUiErrorType["invalidModel"] = 5] = "invalidModel";
-})(BsUiErrorType = BsUiErrorType || (BsUiErrorType = {}));
+})(BsUiErrorType || (BsUiErrorType = {}));
 var bsUiErrorMessage = (_a = {},
     _a[BsUiErrorType.unknownError] = 'Unknown error',
     _a[BsUiErrorType.unexpectedError] = 'Unexpected error',
@@ -169,7 +173,6 @@ var BsUiError = /** @class */ (function (_super) {
 function isBsUiError(error) {
     return error instanceof BsUiError;
 }
-var _a;
 
 
 /***/ }),
@@ -522,13 +525,13 @@ var templateReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__[
 /** @internal */
 /** @private */
 var isValidTemplateState = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isNil"])(state)
         && state.hasOwnProperty('property') && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__templateProperty__["h" /* isValidTemplatePropertyState */])(state.property);
 };
 /** @internal */
 /** @private */
 var isValidTemplateStateShallow = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isNil"])(state)
         && state.hasOwnProperty('property');
 };
 
@@ -622,7 +625,7 @@ var templatePropertyReducer = function (state, _a) {
 /** @internal */
 /** @private */
 var isValidColor = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNil"])(state)
         && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNumber"])(state.r) && state.r >= 0 && state.r <= 255
         && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNumber"])(state.g) && state.g >= 0 && state.g <= 255
         && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNumber"])(state.b) && state.b >= 0 && state.b <= 255
@@ -631,13 +634,13 @@ var isValidColor = function (state) {
 /** @internal */
 /** @private */
 var isValidTemplatePropertyState = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNil"])(state)
         && state.hasOwnProperty('color') && isValidColor(state.color);
 };
 /** @internal */
 /** @private */
 var isValidTemplatePropertyStateShallow = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lodash__["isNil"])(state)
         && state.hasOwnProperty('color');
 };
 
@@ -1746,9 +1749,12 @@ __webpack_require__(23).polyfill()
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controller__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__selector__ = __webpack_require__(11);
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -1997,7 +2003,7 @@ var mapDispatchToProps = function (dispatch) {
         onUpdateTemplateColorBatch: __WEBPACK_IMPORTED_MODULE_6__controller__["d" /* updateTemplateColorBatch */],
     }, dispatch);
 };
-var mapStateToProps = function (state, ownProps) {
+var mapStateToProps = function (state) {
     return {
         color: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__selector__["e" /* bsUiModelGetTemplatePropertyColorState */])(state)
     };
@@ -2144,11 +2150,11 @@ var bsUiModelReducer = enableBatching(__webpack_require__.i(__WEBPACK_IMPORTED_M
 // Validators
 // -----------------------------------------------------------------------
 var isValidBsUiModelState = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isNil"])(state)
         && state.hasOwnProperty('template') && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__template__["b" /* isValidTemplateState */])(state.template);
 };
 var isValidBsUiModelStateShallow = function (state) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isObject"])(state)
+    return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lodash__["isNil"])(state)
         && state.hasOwnProperty('template');
 };
 

@@ -6,12 +6,12 @@ import {
   TxHdcpStatus,
 } from '@brightsign/videooutput';
 
-let writableColorProperties = {
-  constrast: 0,
-  saturation: 0,
-  hue: 0,
-  brightness: 0,
-};
+// let writableColorProperties = {
+//   constrast: 0,
+//   saturation: 0,
+//   hue: 0,
+//   brightness: 0,
+// };
 
 export default class VideoOutput {
 
@@ -36,7 +36,7 @@ export default class VideoOutput {
   }
 
   adjustGraphicsColor(colorProperties: ColorProperties): Promise<void> {
-    writableColorProperties = colorProperties;
+    // writableColorProperties = colorProperties;
     return Promise.resolve();
   }
 

@@ -35,7 +35,7 @@ export class TemplateComponent extends React.Component<TemplateProps> {
     renderBody(): JSX.Element;
     render(): JSX.Element;
 }
-export const Template: React.ComponentClass<Pick<TemplateProps, never> & undefined> & {
+export const Template: import("react-redux").ComponentClass<Pick<TemplateProps, never>> & {
     WrappedComponent: React.ComponentType<TemplateProps>;
 };
 
@@ -84,10 +84,10 @@ export interface RehydrateBsUiModelParams {
 }
 /** @private */
 export type RehydrateBsUiModelAction = BsUiModelAction<RehydrateBsUiModelParams>;
-export const bsUiModelRehydrateModel: (bsUiModelState: BsUiModelState) => BsUiModelAction<RehydrateBsUiModelParams>;
+export const bsUiModelRehydrateModel: (bsUiModelState: BsUiModelState) => RehydrateBsUiModelAction;
 /** @private */
 export type ResetBsUiModelAction = BsUiModelAction<null>;
-export const bsUiModelResetModel: () => BsUiModelAction<null>;
+export const bsUiModelResetModel: () => ResetBsUiModelAction;
 
 /** @module Model:base */
 export type BsUiReducer = Reducer<BsUiModelState>;
@@ -95,6 +95,7 @@ export const bsUiModelReducer: BsUiReducer;
 export const isValidBsUiModelState: (state: any) => boolean;
 export const isValidBsUiModelStateShallow: (state: any) => boolean;
 
+/** @module Model:template */
 /** @private */
 export const templateReducer: (state: BsUiModelTemplateState, action: BsUiModelBatchAction) => BsUiModelTemplateState;
 /** @private */
@@ -102,6 +103,7 @@ export const isValidTemplateState: (state: any) => boolean;
 /** @private */
 export const isValidTemplateStateShallow: (state: any) => boolean;
 
+/** @module Model:templateProperty */
 /** @private */
 export const BSUIMODEL_UPDATE_TEMPLATE_PROPERTY: string;
 /** @private */
@@ -111,13 +113,13 @@ export type UpdateTemplatePropertyAction = BsUiModelAction<Partial<BsUiModelTemp
 /** @private */
 export type ResetTemplatePropertyAction = BsUiModelAction<null>;
 /** @private */
-export const bsUiModelResetTemplateProperty: () => BsUiModelAction<null>;
+export const bsUiModelResetTemplateProperty: () => ResetTemplatePropertyAction;
 /** @private */
-export const bsUiModelUpdateTemplateColor: (color: BsUiModelTemplatePropertyColorState) => BsUiModelAction<Partial<BsUiModelTemplatePropertyState>>;
+export const bsUiModelUpdateTemplateColor: (color: BsUiModelTemplatePropertyColorState) => UpdateTemplatePropertyAction;
 /** @private */
 export const templatePropertyDefault: BsUiModelTemplatePropertyState;
 /** @private */
-export const templatePropertyReducer: (state: BsUiModelTemplatePropertyState | undefined, {type, payload}: BsUiModelAction<null> | BsUiModelAction<RehydrateBsUiModelParams> | BsUiModelAction<Partial<BsUiModelTemplatePropertyState>>) => BsUiModelTemplatePropertyState;
+export const templatePropertyReducer: (state: BsUiModelTemplatePropertyState | undefined, { type, payload }: (UpdateTemplatePropertyAction | ResetTemplatePropertyAction | ResetBsUiModelAction | BsUiModelAction<RehydrateBsUiModelParams>)) => BsUiModelTemplatePropertyState;
 /** @private */
 export const isValidColor: (state: any) => boolean;
 /** @private */
@@ -131,9 +133,11 @@ export const bsUiModelFilterBaseState: (state: any) => BsUiModelState;
 /** @private */
 export const bsUiModelGetBaseState: (state: BsUiModelState) => BsUiModelState;
 
+/** @module Selector:template */
 /** @private */
 export const bsUiModelGetTemplateState: (state: BsUiModelState) => BsUiModelTemplateState;
 
+/** @module Selector:templateProperty */
 /** @private */
 export const bsUiModelGetTemplatePropertyState: (state: BsUiModelState) => BsUiModelTemplatePropertyState;
 /** @private */
@@ -181,7 +185,7 @@ export enum BsUiErrorType {
     invalidParameters = 2,
     invalidOperation = 3,
     apiError = 4,
-    invalidModel = 5,
+    invalidModel = 5
 }
 export class BsUiError extends Error {
     name: string;

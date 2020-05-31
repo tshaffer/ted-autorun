@@ -1,7 +1,7 @@
 /** @module Model:template */
 
 import { combineReducers } from 'redux';
-import { isObject } from 'lodash';
+import { isNil } from 'lodash';
 import { BsUiModelTemplateState } from '../type';
 import { BsUiModelBatchAction } from './baseAction';
 import {
@@ -38,13 +38,13 @@ export const templateReducer = combineReducers<BsUiModelTemplateState>({
 /** @internal */
 /** @private */
 export const isValidTemplateState = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('property') && isValidTemplatePropertyState(state.property);
 };
 
 /** @internal */
 /** @private */
 export const isValidTemplateStateShallow = (state: any): boolean => {
-  return isObject(state)
+  return !isNil(state)
     && state.hasOwnProperty('property');
 };

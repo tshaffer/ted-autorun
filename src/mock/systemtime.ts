@@ -1,12 +1,12 @@
 import { LastNetworkTimeResult } from '@brightsign/systemtime';
 
-let writeableDate = new Date();
+// let writeableDate = new Date();
 export default class SystemTime {
 
   networktimeevent: Event;
 
   setDate(date: Date): Promise<void> {
-    writeableDate = date;
+    // writeableDate = date;
     return Promise.resolve();
   }
 

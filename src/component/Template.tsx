@@ -352,7 +352,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     }, dispatch);
 };
 
-const mapStateToProps = (state: BsUiModelState, ownProps: undefined): Partial<TemplateProps> => {
+const mapStateToProps = (state: BsUiModelState): Partial<TemplateProps> => {
   return {
     color: bsUiModelGetTemplatePropertyColorState(state)
   };
