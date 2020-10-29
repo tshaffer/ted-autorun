@@ -6,9 +6,9 @@ import {
   createBsColor,
 } from '../type';
 import {
-  BsUiModelAction,
-  BsUiModelThunkAction,
-  BsUiModelDispatch,
+  // BsUiModelAction,
+  // BsUiModelThunkAction,
+  // BsUiModelDispatch,
   bsUiModelRehydrateModel,
   bsUiModelResetModel,
 } from '../model';
@@ -31,15 +31,15 @@ const fetchModelAsync = (): Promise<BsUiModelState> => {
 // Controller Methods
 // -----------------------------------------------------------------------
 
-export const initModel = (): BsUiModelThunkAction<Promise<any>> => {
-  return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
+export const initModel = () => {
+  return (dispatch: any) => {
     return fetchModelAsync()
-      .then((model: BsUiModelState) => dispatch(bsUiModelRehydrateModel(model)));
+      .then((model) => dispatch(bsUiModelRehydrateModel(model)));
   };
 };
 
-export const resetModel = (): BsUiModelThunkAction<BsUiModelAction<null>> => {
-  return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
+export const resetModel = () => {
+  return (dispatch: any) => {
     return dispatch(bsUiModelResetModel());
   };
 };

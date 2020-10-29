@@ -6,7 +6,7 @@ import {
 } from 'electron';
 import * as url from 'url';
 
-let mainWindow: Electron.BrowserWindow | null;
+let mainWindow: Electron.BrowserWindow;
 
 function createWindow() {
   // Create the browser window.
@@ -14,6 +14,9 @@ function createWindow() {
     height: 600,
     width: 800,
     webPreferences: {
+      // This following windows parameters should be considered before 
+      // deploying this electron to production
+      // see https://electronjs.org/docs/tutorial/security.
       nodeIntegration: true,
       webSecurity: false
     }
@@ -72,17 +75,9 @@ function startDevToolsInstall() {
   if (process.env.NODE_ENV === 'development') {
     const devToolsInstaller = require('electron-devtools-installer');
     const installer = devToolsInstaller.default;
-    installer(devToolsInstaller.REACT_DEVELOPER_TOOLS)
-      .then((name: string) => console.info(`extension installed: ${name}`))
-      .catch((err: Error) => console.error(`error installing extension: ${err}`));
-    installer(devToolsInstaller.REACT_PERF)
-      .then((name: string) => console.info(`extension installed: ${name}`))
-      .catch((err: Error) => console.error(`error installing extension: ${err}`));
     installer(devToolsInstaller.REDUX_DEVTOOLS)
       .then((name: string) => console.info(`extension installed: ${name}`))
-      .catch((err: Error) => console.error(`error installing extension: ${err}`));
-    const devtronInstaller = require('devtron');
-    devtronInstaller.install();
+      .catch((err: Error) => console.error(`error installing extension: ${err}`));;
   }
 }
 

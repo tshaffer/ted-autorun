@@ -12,54 +12,69 @@ process.on('unhandledRejection', err => {
 });
 
 // Ensure environment variables are read.
-require('../config/env');
-
-const path = require('path');
-const chalk = require('chalk');
-const fs = require('fs-extra');
-const webpack = require('webpack');
 const env = require('../config/env');
-const getClientEnvironment = env.getClientEnvironment;
 const isBrowser = env.isBrowser;
 const isStandalone = env.isStandalone;
-const config = require('../config/webpack.config.prod');
+const path = require('path');
+const chalk = require('react-dev-utils/chalk');
+const fs = require('fs-extra');
+const bfj = require('bfj');
+const webpack = require('webpack');
+const configFactory = require('../config/webpack.config');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
+const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
-
-let appProdIndexJs = paths.appProdIndexJs;
-if (isStandalone) {
-  appProdIndexJs = paths.appProdStandaloneIndexJs;
-}
-
-let distDeploymentDir = paths.appDistElectron;;
-if (isBrowser) {
-  distDeploymentDir = paths.appDistBrowser;
-} else if (isStandalone) {
-  distDeploymentDir = paths.appDistStandalone;
-}
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
-const useYarn = fs.existsSync(paths.yarnLockFile);
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
+const isInteractive = process.stdout.isTTY;
+
+  
+let requiredFiles = [paths.appIndexJs];
+if (isStandalone) {
+  requiredFiles = [paths.appHtml, paths.appStandaloneIndexJs]
+}
+
+let buildLabel = 'electron';
+let distDeploymentDir = paths.appDistElectron;;
+if (isBrowser) {
+  buildLabel = 'browser';
+  distDeploymentDir = paths.appDistBrowser;
+} else if (isStandalone) {
+  buildLabel = 'standalone';
+  distDeploymentDir = paths.appDistStandalone;
+}
+
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, appProdIndexJs])) {
+if (!checkRequiredFiles(requiredFiles)) {
   process.exit(1);
 }
 
-// First, read the current file sizes in build directory.
-// This lets us display how much they changed later.
-measureFileSizesBeforeBuild(distDeploymentDir)
+const argv = process.argv.slice(2);
+const writeStatsJson = argv.indexOf('--stats') !== -1;
+
+// Generate configuration
+const config = configFactory('production');
+
+// We require that you explicitly set browsers and do not fall back to
+// browserslist defaults.
+const { checkBrowsers } = require('react-dev-utils/browsersHelper');
+checkBrowsers(paths.appPath, isInteractive)
+  .then(() => {
+    // First, read the current file sizes in build directory.
+    // This lets us display how much they changed later.
+    return measureFileSizesBeforeBuild(distDeploymentDir);
+  })
   .then(previousFileSizes => {
-    // Merge with the public folder
     // Start the webpack build
     return build(previousFileSizes);
   })
@@ -79,42 +94,73 @@ measureFileSizesBeforeBuild(distDeploymentDir)
             ' to the line before.\n'
         );
       } else {
-        console.log(chalk.green('Compiled ' + (process.env.PLATFORM)  + ' successfully.\n'));
+        console.log(chalk.green('Compiled ' + buildLabel + ' successfully.\n'));
       }
 
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
-        distDeploymentDir,
+        paths.appDist,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
       console.log();
-
-      const appPackage = require(paths.appPackageJson);
-      const publicUrl = paths.publicUrl;
-      const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), distDeploymentDir);
     },
     err => {
-      console.log(chalk.red('Failed to compile '+ (process.env.PLATFORM) +'\n'));
-      printBuildError(err);
-      process.exit(1);
+      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
+      if (tscCompileOnError) {
+        console.log(
+          chalk.yellow(
+            'Compiled with the following type errors (you may want to check these before deploying your app):\n'
+          )
+        );
+        printBuildError(err);
+      } else {
+        console.log(chalk.red('Failed to compile.\n'));
+        printBuildError(err);
+        process.exit(1);
+      }
     }
-  );
+  )
+  .catch(err => {
+    if (err && err.message) {
+      console.log(err.message);
+    }
+    process.exit(1);
+  });
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  console.log('Creating an optimized production ' + (process.env.PLATFORM)  + ' build');
+  console.log('Creating an optimized ' + buildLabel + ' build...');
 
-  let compiler = webpack(config);
+  const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
+      let messages;
       if (err) {
-        return reject(err);
+        if (!err.message) {
+          return reject(err);
+        }
+
+        let errMessage = err.message;
+
+        // Add additional information for postcss errors
+        if (Object.prototype.hasOwnProperty.call(err, 'postcssNode')) {
+          errMessage +=
+            '\nCompileError: Begins at CSS selector ' +
+            err['postcssNode'].selector;
+        }
+
+        messages = formatWebpackMessages({
+          errors: [errMessage],
+          warnings: [],
+        });
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
       }
-      const messages = formatWebpackMessages(stats.toJson({}, true));
       if (messages.errors.length) {
         return reject(new Error(messages.errors.join('\n\n')));
       }
@@ -132,11 +178,21 @@ function build(previousFileSizes) {
         );
         return reject(new Error(messages.warnings.join('\n\n')));
       }
-      return resolve({
+
+      const resolveArgs = {
         stats,
         previousFileSizes,
         warnings: messages.warnings,
-      });
+      };
+
+      return resolve(resolveArgs);
     });
+  });
+}
+
+function copyPublicFolder() {
+  fs.copySync(paths.appPublic, paths.appDist, {
+    dereference: true,
+    filter: file => file !== paths.appHtml,
   });
 }

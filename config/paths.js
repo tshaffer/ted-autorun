@@ -2,10 +2,9 @@
 
 const path = require('path');
 const fs = require('fs');
-const url = require('url');
 
 // Make sure any symlinks in the project folder are resolved:
-// https://github.com/facebookincubator/create-react-app/issues/637
+// https://github.com/facebook/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
@@ -33,32 +32,69 @@ const getPublicUrl = appPackageJson =>
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
+
+  let defaultBase = './';
+  if (process.env.NODE_ENV === 'development') {
+    defaultBase = '/';
+  }
+
   const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : './');
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : defaultBase);
   return ensureSlash(servedUrl, true);
 }
+
+const moduleFileExtensions = [
+  'web.mjs',
+  'mjs',
+  'web.js',
+  'js',
+  'web.ts',
+  'ts',
+  'web.tsx',
+  'tsx',
+  'json',
+  'web.jsx',
+  'jsx',
+];
+
+// Resolve file paths in the same order as webpack
+const resolveModule = (resolveFn, filePath) => {
+  const extension = moduleFileExtensions.find(extension =>
+    fs.existsSync(resolveFn(`${filePath}.${extension}`))
+  );
+
+  if (extension) {
+    return resolveFn(`${filePath}.${extension}`);
+  }
+
+  return resolveFn(`${filePath}.js`);
+};
 
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appRoot: resolveApp('./'),
+  appPath: resolveApp('.'),
+  appDist: resolveApp('dist'),
+  appDistTypings: resolveApp('dist/typings'),
   appDistBrowser: resolveApp('dist/browser'),
   appDistElectron: resolveApp('dist/electron'),
   appDistStandalone: resolveApp('dist/standalone'),
-  appDev: resolveApp('dev'),
-  appHtml: resolveApp('dev/index.html'),
-  appDevIndexJs: resolveApp('dev/bootstrap.tsx'),
+  appPublic: resolveApp('public'),
+  appHtml: resolveApp('public/index.html'),
+  appIndexJs: resolveApp('src/index.ts'),
+  appStandaloneIndexJs: resolveApp('src/index.bootstrap.tsx'),
   appDevElectronMain: resolveApp('dev/bootstrap.main.js'),
-  appProdIndexJs: resolveApp('src/index.ts'),
-  appProdStandaloneIndexJs: resolveApp('src/index.bootstrap.tsx'),
   appPackageJson: resolveApp('package.json'),
-  appDevSrc: [resolveApp('src'), resolveApp('dev')], 
-  appProdSrc: resolveApp('src'),
+  appSrc: resolveApp('src'),
   appBrightSignMock: resolveApp('src/mock'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveApp('src/setupTests.ts'),
-  appNodeModules: resolveApp('node_modules'),
   appTsConfig: resolveApp('tsconfig.json'),
-  publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
+  appJsConfig: resolveApp('jsconfig.json'),
+  yarnLockFile: resolveApp('yarn.lock'),
+  testsSetup: resolveModule(resolveApp, 'src/setupTests'),
+  proxySetup: resolveApp('src/setupProxy.js'),
+  appNodeModules: resolveApp('node_modules'),
+  swSrc: resolveModule(resolveApp, 'src/service-worker'),
+  publicUrlOrPath: getServedPath(resolveApp('package.json')),
 };
+
+module.exports.moduleFileExtensions = moduleFileExtensions;

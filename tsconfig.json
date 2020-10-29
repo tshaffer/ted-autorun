@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "outDir": "./",
+    "outDir": "./dist/typings",
     "module": "esnext",
     "target": "es5",
     "lib": ["es6", "dom"],
@@ -9,6 +9,8 @@
     "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -16,10 +18,13 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
+  "typeRoots": ["./node_modules/@types", "./src/react-app-env.d.ts", "./src/mock/index.d.ts"],
   "exclude": [
     "node_modules",
     "dev",
-    "build",
+    "dist",
+    "env",
+    "config",
     "scripts",
     "acceptance-tests",
     "webpack",

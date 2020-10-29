@@ -5,10 +5,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { TemplateProps, Template, TemplateComponent } from './Template';
 import { bsUiModelReducer } from '../model';
-import {
-  BsUiModelState,
-  createBsColor,
-} from '../type';
+import { createBsColor } from '../type';
 
 describe('Template - shallow component render without store', () => {
 
@@ -31,7 +28,7 @@ describe('Template - shallow component render without store', () => {
   });
 
   it('should render two buttons', () => {
-    expect(component.find('input[type="button"]').length).toBe(2);
+    expect(component.find('input[type="button"]').length).toBe(4);
   });
 
 });
@@ -54,23 +51,23 @@ describe('Template - integrated component render with store', () => {
   let component: any = null;
 
   beforeEach(() => {
-    store = createStore<BsUiModelState>(bsUiModelReducer, applyMiddleware(thunk));
+    store = createStore(bsUiModelReducer, applyMiddleware(thunk));
     component = mount(<Provider store={store}><Template /></Provider>);
   });
 
-  it('should receive dispatch props properly', () => {
+  it('should receive dispatch props', () => {
     expect(typeof component).toBe('object');
   });
 
   it('should render two buttons', () => {
-    expect(component.find('input[type="button"]').length).toBe(2);
+    expect(component.find('input[type="button"]').length).toBe(4);
   });
 
   it('should receive color props', () => {
     expect(component.find(TemplateComponent).props().color).toMatchObject(testState.template.property.color);
   });
 
-  it('should receive dispatch props properly', () => {
+  it('should receive dispatch props with handlers', () => {
     expect(typeof component.find(TemplateComponent).props().onInitModel).toBe('function');
     expect(typeof component.find(TemplateComponent).props().onResetModel).toBe('function');
     expect(typeof component.find(TemplateComponent).props().onUpdateTemplateColorAsync).toBe('function');

@@ -4,15 +4,20 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { bsUiModelReducer } from './model';
-import { BsUiModelState } from './type';
+import { /*BsUiModelAction,*/ bsUiModelReducer } from './model';
+// import { BsUiModelState } from './type';
 import { Template } from './component';
 import './asset/bootstrap.css';
 import 'normalize.css/normalize.css';
 import 'flexboxgrid/dist/flexboxgrid.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import reportWebVitals from './reportWebVitals';
 
-const store = createStore<BsUiModelState>(bsUiModelReducer, composeWithDevTools(applyMiddleware(thunk)));
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+const store = createStore(bsUiModelReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

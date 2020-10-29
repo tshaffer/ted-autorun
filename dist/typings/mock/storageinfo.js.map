@@ -1,0 +1,1 @@
+{"version":3,"file":"storageinfo.js","sourceRoot":"","sources":["../../../src/mock/storageinfo.ts"],"names":[],"mappings":"AAEA;IACE,qBAAY,IAAY;QACtB,OAAO;IACT,CAAC;IAED,mCAAa,GAAb;QACE,OAAO,OAAO,CAAC,OAAO,CAAC,IAAI,CAAC,CAAC;IAC/B,CAAC;IAED,mCAAa,GAAb;QACE,OAAO,OAAO,CAAC,OAAO,CAAC,EAAE,IAAI,EAAE,IAAI,EAAE,CAAC,CAAC;IACzC,CAAC;IACH,kBAAC;AAAD,CAAC,AAZD,IAYC"}

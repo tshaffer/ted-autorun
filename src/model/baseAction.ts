@@ -25,7 +25,7 @@ export const BSUIMODEL_RESET = 'BSUIMODEL_RESET';
 
 /** @internal */
 /** @private */
-export type BsUiModelDispatch = Dispatch<BsUiModelState>;
+export type BsUiModelDispatch = Dispatch<any>;
 
 /** @internal */
 /** @private */

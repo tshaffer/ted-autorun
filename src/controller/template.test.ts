@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { bsUiModelReducer } from '../model';
-import { BsUiModelState } from '../type';
 import * as template from './template';
 
 describe('template - controller', () => {
@@ -22,7 +21,7 @@ describe('template - controller', () => {
   let store: any = null;
 
   beforeEach(() => {
-    store = createStore<BsUiModelState>(bsUiModelReducer, applyMiddleware(thunk));
+    store = createStore(bsUiModelReducer, applyMiddleware(thunk));
   });
 
   it('should update template color async', () => {

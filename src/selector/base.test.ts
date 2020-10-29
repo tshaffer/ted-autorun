@@ -30,7 +30,7 @@ describe('base - selector', () => {
     }
   };
 
-  it('should retrieve base state', () => {
+  it('should retrieve valid base state or throw error', () => {
     expect(base.bsUiModelFilterBaseState(testStateOne)).toMatchObject(testStateOne);
     expect(base.bsUiModelFilterBaseState(testStateTwo)).toMatchObject(testStateTwo.bsuimodel);
     expect(base.bsUiModelFilterBaseState.bind(null, {})).toThrowError();

@@ -17,6 +17,8 @@ const paths = require('../config/paths');
 
 // Remove all content but keep the directory so that
 // if you're in it, you don't end up in Trash
+// fs.emptyDirSync(paths.appDist);
+// fs.emptyDirSync(paths.appDistTypings);
 fs.emptyDirSync(paths.appDistBrowser);
 fs.emptyDirSync(paths.appDistElectron);
 fs.emptyDirSync(paths.appDistStandalone);

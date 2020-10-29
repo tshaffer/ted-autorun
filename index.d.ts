@@ -31,21 +31,21 @@ export class TemplateComponent extends React.Component<TemplateProps> {
     renderController(): JSX.Element;
     renderType(): JSX.Element;
     renderError(): JSX.Element;
+    renderJavaScript(): JSX.Element;
+    renderBrightSignObject(): JSX.Element;
     renderHeader(): JSX.Element;
     renderBody(): JSX.Element;
     render(): JSX.Element;
 }
-export const Template: import("react-redux").ComponentClass<Pick<TemplateProps, never>> & {
-    WrappedComponent: React.ComponentType<TemplateProps>;
-};
+export const Template: import("react-redux").ConnectedComponent<typeof TemplateComponent, Pick<React.ClassAttributes<TemplateComponent> & TemplateProps, "ref" | "key">>;
 
-export const initModel: () => BsUiModelThunkAction<Promise<any>>;
-export const resetModel: () => BsUiModelThunkAction<BsUiModelAction<null>>;
+export const initModel: () => (dispatch: any) => Promise<any>;
+export const resetModel: () => (dispatch: any) => any;
 
 /** @private */
-export const updateTemplateColorAsync: () => BsUiModelThunkAction<Promise<any>>;
+export const updateTemplateColorAsync: () => (dispatch: any) => Promise<any>;
 /** @private */
-export const updateTemplateColorBatch: () => BsUiModelThunkAction<BsUiModelBatchAction>;
+export const updateTemplateColorBatch: () => (dispatch: any) => any;
 
 /** @module Model:base */
 /** @private */
@@ -55,7 +55,7 @@ export const BSUIMODEL_REHYDRATE = "BSUIMODEL_REHYDRATE";
 /** @private */
 export const BSUIMODEL_RESET = "BSUIMODEL_RESET";
 /** @private */
-export type BsUiModelDispatch = Dispatch<BsUiModelState>;
+export type BsUiModelDispatch = Dispatch<any>;
 /** @private */
 export interface BsUiModelBaseAction extends Action {
     type: string;

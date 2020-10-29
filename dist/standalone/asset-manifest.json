@@ -1,10 +1,25 @@
 {
-  "fontawesome-webfont.eot?v=4.7.0": "fontawesome-webfont.674f50d2.eot",
-  "fontawesome-webfont.ttf?v=4.7.0": "fontawesome-webfont.b06871f2.ttf",
-  "fontawesome-webfont.woff2?v=4.7.0": "fontawesome-webfont.af7ae505.woff2",
-  "fontawesome-webfont.woff?v=4.7.0": "fontawesome-webfont.fee66e71.woff",
-  "main.css": "main.b11fd154.css",
-  "main.css.map": "main.b11fd154.css.map",
-  "main.js": "main.24ad2c02.standalone.js",
-  "main.js.map": "main.24ad2c02.standalone.js.map"
+  "files": {
+    "main.css": "./static/css/main.96189177.chunk.css",
+    "main.js": "./main.f2363991.chunk.js",
+    "main.js.map": "./main.f2363991.chunk.js.map",
+    "runtime-main.js": "./runtime-main.0964c40b.js",
+    "runtime-main.js.map": "./runtime-main.0964c40b.js.map",
+    "static/css/2.97c61fd3.chunk.css": "./static/css/2.97c61fd3.chunk.css",
+    "2.c13012a5.chunk.js": "./2.c13012a5.chunk.js",
+    "2.c13012a5.chunk.js.map": "./2.c13012a5.chunk.js.map",
+    "3.1ea19dbb.chunk.js": "./3.1ea19dbb.chunk.js",
+    "3.1ea19dbb.chunk.js.map": "./3.1ea19dbb.chunk.js.map",
+    "2.c13012a5.chunk.js.LICENSE.txt": "./2.c13012a5.chunk.js.LICENSE.txt",
+    "index.html": "./index.html",
+    "static/css/2.97c61fd3.chunk.css.map": "./static/css/2.97c61fd3.chunk.css.map",
+    "static/css/main.96189177.chunk.css.map": "./static/css/main.96189177.chunk.css.map"
+  },
+  "entrypoints": [
+    "runtime-main.0964c40b.js",
+    "static/css/2.97c61fd3.chunk.css",
+    "2.c13012a5.chunk.js",
+    "static/css/main.96189177.chunk.css",
+    "main.f2363991.chunk.js"
+  ]
 }

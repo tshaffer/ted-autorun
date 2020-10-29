@@ -1,4 +1,9 @@
 {
-  "main.js": "main.js",
-  "main.js.map": "main.js.map"
+  "files": {
+    "main.js": "./main.bsuit.js",
+    "main.js.map": "./main.bsuit.js.map"
+  },
+  "entrypoints": [
+    "main.bsuit.js"
+  ]
 }

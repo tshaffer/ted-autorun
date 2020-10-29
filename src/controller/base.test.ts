@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { bsUiModelReducer } from '../model';
-import { BsUiModelState } from '../type';
 import * as base from './base';
 
 describe('base - controller', () => {
@@ -22,7 +21,7 @@ describe('base - controller', () => {
   let store: any = null;
 
   beforeEach(() => {
-    store = createStore<BsUiModelState>(bsUiModelReducer, applyMiddleware(thunk));
+    store = createStore(bsUiModelReducer, applyMiddleware(thunk));
   });
 
   it('should initialize store', () => {

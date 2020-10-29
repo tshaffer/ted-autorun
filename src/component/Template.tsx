@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
+import { /*Dispatch,*/ bindActionCreators } from 'redux';
 import { style } from 'typestyle';
 import * as csstips from 'csstips';
 import { percent, color, rgba } from 'csx';
 import {
-  BsUiModelState,
   BsUiModelTemplatePropertyColorState,
 } from '../type';
 import {
@@ -15,8 +14,9 @@ import {
   updateTemplateColorBatch,
 } from '../controller';
 import { bsUiModelGetTemplatePropertyColorState } from '../selector';
-
-const TemplateAsset = require('../asset/TemplateAsset.svg');
+import jsAlert from '../asset/someJavaScript';
+import VideoInput from '@brightsign/videoinput';
+import TemplateAsset from '../asset/TemplateAsset.svg';
 
 // -----------------------------------------------------------------------
 // Types
@@ -151,9 +151,9 @@ export class TemplateComponent extends React.Component<TemplateProps> {
           <br/><br/>
           ...
           <br/><br/>
-          &lt;img className={imageContainerStyle()} src={TemplateAsset} /&gt;
+          <img className={imageContainerStyle()} src={TemplateAsset} alt={'TemplateAsset'} />
         </div>
-        <img className={imageContainerStyle()} src={TemplateAsset} />
+        <img className={imageContainerStyle()} src={TemplateAsset} alt={'TemplateAsset'} />
         <h3>Style</h3>
         <p className={paragraphContainerStyle()}>
           Components should be styled using the included inline, optimized, type safe style APIs:
@@ -308,6 +308,45 @@ export class TemplateComponent extends React.Component<TemplateProps> {
     );
   }
 
+  renderJavaScript() {
+    return (
+      <div className={bodySectionContainerStyle()}>
+        <h2 className={subHeaderContainerStyle()}>Load JavaScript</h2>
+        <div className={codeContainerStyle()}>
+          ~/src/component/Template.tsx
+          <br/><br/>
+        </div>
+        <input
+          className={buttonStyle(this.props.color)}
+          type='button'
+          value='Invoke JavaScript module'
+          onClick={() => jsAlert("js alert")}
+        />
+      </div>
+    );
+  }
+
+  renderBrightSignObject() {
+    return (
+      <div className={bodySectionContainerStyle()}>
+      <h2 className={subHeaderContainerStyle()}>BrightSign object usage</h2>
+      <div className={codeContainerStyle()}>
+        ~/src/component/Template.tsx
+        <br/><br/>
+      </div>
+        <input
+          className={buttonStyle(this.props.color)}
+          type='button'
+          value='Invoke BrightScript object'
+          onClick={() => {
+            const dc = new VideoInput().defaultConfig();
+            jsAlert(JSON.stringify(dc));
+          }}
+        />
+      </div>
+    );
+  }
+
   renderHeader() {
     return (
       <div className={headerContainerStyle()}>
@@ -325,6 +364,8 @@ export class TemplateComponent extends React.Component<TemplateProps> {
         {this.renderController()}
         {this.renderType()}
         {this.renderError()}
+        {this.renderJavaScript()}
+        {this.renderBrightSignObject()}
       </div>
     );
   }
@@ -343,7 +384,7 @@ export class TemplateComponent extends React.Component<TemplateProps> {
 // Container
 // -----------------------------------------------------------------------
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
       onInitModel: initModel,
       onResetModel: resetModel,
@@ -352,7 +393,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     }, dispatch);
 };
 
-const mapStateToProps = (state: BsUiModelState): Partial<TemplateProps> => {
+const mapStateToProps = (state: any) => {
   return {
     color: bsUiModelGetTemplatePropertyColorState(state)
   };

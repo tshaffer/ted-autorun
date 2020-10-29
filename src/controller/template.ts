@@ -1,11 +1,11 @@
 import {
-  BsUiModelState,
+  // BsUiModelState,
   createBsColor,
 } from '../type';
 import {
-  BsUiModelThunkAction,
-  BsUiModelBatchAction,
-  BsUiModelDispatch,
+  // BsUiModelThunkAction,
+  // BsUiModelBatchAction,
+  // BsUiModelDispatch,
   bsUiModelBatchAction,
   bsUiModelUpdateTemplateColor,
 } from '../model';
@@ -28,8 +28,8 @@ const doAsync = (): Promise<undefined> => {
 
 /** @internal */
 /** @private */
-export const updateTemplateColorAsync = (): BsUiModelThunkAction<Promise<any>> => {
-  return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
+export const updateTemplateColorAsync = () => {
+  return (dispatch: any) => {
     return doAsync()
       .then(() => {
         const r = getRandomInt(0, 255);
@@ -44,8 +44,8 @@ export const updateTemplateColorAsync = (): BsUiModelThunkAction<Promise<any>> =
 
 /** @internal */
 /** @private */
-export const updateTemplateColorBatch = (): BsUiModelThunkAction<BsUiModelBatchAction> => {
-  return (dispatch: BsUiModelDispatch, getState: () => BsUiModelState) => {
+export const updateTemplateColorBatch = () => {
+  return (dispatch: any) => {
     const batchActions = [];
     const r = getRandomInt(0, 255);
     const g = getRandomInt(0, 255);

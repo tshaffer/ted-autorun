@@ -1,0 +1,1 @@
+{"version":3,"file":"assetpoolfetcher.js","sourceRoot":"","sources":["../../../src/mock/assetpoolfetcher.ts"],"names":[],"mappings":"AAMA;IAKE,0BAAY,IAAe;QACzB,OAAO;IACT,CAAC;IAED,gCAAK,GAAL,UAAM,IAAa,EAAE,eAAwC;QAC3D,OAAO,OAAO,CAAC,OAAO,EAAE,CAAC;IAC3B,CAAC;IAED,iCAAM,GAAN;QACE,OAAO,OAAO,CAAC,OAAO,EAAE,CAAC;IAC3B,CAAC;IAEH,uBAAC;AAAD,CAAC,AAjBD,IAiBC"}

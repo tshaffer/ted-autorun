@@ -12,7 +12,7 @@ import 'normalize.css/normalize.css';
 import 'flexboxgrid/dist/flexboxgrid.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-const store = createStore<BsUiModelState>(bsUiModelReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(bsUiModelReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
