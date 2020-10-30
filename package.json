@@ -106,7 +106,7 @@
   "scripts": {
     "start-electron": "cross-env PLATFORM=electron node scripts/start.js",
     "start-browser": "cross-env PLATFORM=browser node scripts/start.js",
-    "build-electron-main": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.main.js",
+    "build-electron-main": "cross-env NODE_ENV=development webpack --config ./config/webpack.config.main.js",
     "package-link": "npm link typescript && npm link webpack",
     "package-install": "npm install --only=production",
     "build-browser": "cross-env PLATFORM=browser node scripts/build.js",
