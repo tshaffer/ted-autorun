@@ -18,7 +18,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
-  "typeRoots": ["./node_modules/@types", "./src/react-app-env.d.ts", "./src/mock/index.d.ts"],
+  "files": ["./src/react-app-env.d.ts", "./src/mock/index.d.ts"],
   "exclude": [
     "node_modules",
     "dev",
