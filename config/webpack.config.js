@@ -821,7 +821,7 @@ module.exports = function (webpackEnv) {
         },
       }),
       // add auto types generation
-      isEnvProduction && new DtsBundlePlugin(),
+      isEnvProduction && !isStandalone && new DtsBundlePlugin(),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.
