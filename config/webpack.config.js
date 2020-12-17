@@ -126,7 +126,7 @@ module.exports = function (webpackEnv) {
   };
   
   let nodeStubs = {};
-  if (!isElectron) {
+  if (!isElectron && !isStandalone) {
     nodeStubs = {
       module: 'empty',
       dgram: 'empty',
@@ -830,7 +830,9 @@ module.exports = function (webpackEnv) {
     // Tell webpack to provide empty mocks for them so importing them works.
     node: nodeStubs,
     externals: externals,
-    target: isElectron
+    // assume standlone build is 'electron-like' as this is targeting
+    // support for brightsign roHtmlWidget
+    target: isElectron || isStandalone
       ? 'electron-renderer'
       : 'web',
     // Turn off performance processing because we utilize
