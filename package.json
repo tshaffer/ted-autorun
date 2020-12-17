@@ -18,6 +18,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
     "@svgr/webpack": "5.4.0",
     "@types/enzyme": "^3.10.8",
+    "@types/fs-extra": "^9.0.1",
     "@types/jest": "^26.0.15",
     "@types/lodash": "^4.14.162",
     "@types/node": "^12.19.2",
