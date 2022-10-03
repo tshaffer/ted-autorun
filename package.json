@@ -1,17 +1,17 @@
 {
-  "name": "@brightsign/bs-ui-template",
+  "name": "@brightsign/autorun-js",
   "version": "0.1.0",
   "private": true,
   "author": "BrightSign LLC",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git@git.brightsign.biz:bs-ui-template"
+    "url": "git@git.brightsign.biz:autorun-js"
   },
   "typings": "./index.d.ts",
-  "main": "./dist/electron/main.bsuit.js",
+  "main": "./dist/electron/main.autorun.js",
   "browser": {
-    "./dist/electron/main.bsuit.js": "./dist/browser/main.bsuit.js"
+    "./dist/electron/main.autorun.js": "./dist/browser/main.autorun.js"
   },
   "devDependencies": {
     "@babel/core": "7.12.3",
@@ -94,7 +94,7 @@
     "terser-webpack-plugin": "4.2.3",
     "ts-loader": "^8.0.7",
     "ts-pnp": "1.2.0",
-    "typescript": "^4.0.5",
+    "typescript": "^4.4.3",
     "typestyle": "^2.1.0",
     "url-loader": "4.1.1",
     "web-vitals": "^0.2.4",

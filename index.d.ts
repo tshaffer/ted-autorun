@@ -37,7 +37,7 @@ export class TemplateComponent extends React.Component<TemplateProps> {
     renderBody(): JSX.Element;
     render(): JSX.Element;
 }
-export const Template: import("react-redux").ConnectedComponent<typeof TemplateComponent, Pick<React.ClassAttributes<TemplateComponent> & TemplateProps, "ref" | "key">>;
+export const Template: import("react-redux").ConnectedComponent<typeof TemplateComponent, import("react-redux").Omit<React.ClassAttributes<TemplateComponent> & TemplateProps, "color" | "onInitModel" | "onResetModel" | "onUpdateTemplateColorAsync" | "onUpdateTemplateColorBatch">>;
 
 export const initModel: () => (dispatch: any) => Promise<any>;
 export const resetModel: () => (dispatch: any) => any;

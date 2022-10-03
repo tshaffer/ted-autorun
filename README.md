@@ -1,4 +1,4 @@
-# @brightsign/bs-ui-template
+# @brightsign/autorun-js
 
 ## Available Scripts
 In the project directory, you can run:
