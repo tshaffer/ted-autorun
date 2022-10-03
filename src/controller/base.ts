@@ -59,9 +59,11 @@ Promise.all(promises)
     // console.log('type: ', networkConfig.type);
     console.log(Object.keys(networkConfig).length);
     console.log(Object.keys(networkConfig));
+    console.log(Object.values(networkConfig));
     console.log('networkConfigEth');
     console.log(Object.keys(networkConfigEth).length);
     console.log(Object.keys(networkConfigEth));
+    // console.log(Object.values(networkConfigEth));
     // console.log('networkConfigEth properties');
     // console.log('clientIdentifier: ', networkConfigEth.clientIdentifier);
     // console.log('domain: ', networkConfigEth.domain);
