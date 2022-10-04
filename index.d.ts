@@ -2,10 +2,16 @@
 // Dependencies for this module:
 //   ../../react
 //   ../../redux
+//   ../../@brightsign/bsdatamodel
+//   ../../@brightsign/ba-context-model
+//   ../../@brightsign/bscore
 
 import * as React from 'react';
 import { Action, Dispatch, ActionCreator } from 'redux';
 import { Reducer } from 'redux';
+import { DmState } from '@brightsign/bsdatamodel';
+import { BaContextModelState } from '@brightsign/ba-context-model';
+import { BsAssetLocator } from '@brightsign/bscore';
 
 /** @module Controller:index */
 
@@ -143,18 +149,6 @@ export const bsUiModelGetTemplatePropertyState: (state: BsUiModelState) => BsUiM
 /** @private */
 export const bsUiModelGetTemplatePropertyColorState: (state: BsUiModelState) => BsUiModelTemplatePropertyColorState;
 
-/** @module Types:base */
-/** @private */
-export type DeepPartial<T> = {
-    [P in keyof T]?: DeepPartial<T[P]>;
-};
-/** @private */
-export interface BsUiModelState {
-    template: BsUiModelTemplateState;
-}
-/** @private */
-export const createModel: (template: BsUiModelTemplateState) => BsUiModelState;
-
 /** @module Types:template */
 /** @private */
 export interface BsUiModelTemplateState {
@@ -178,6 +172,209 @@ export interface BsUiModelTemplatePropertyState {
 export const createTemplateProperty: (color: BsUiModelTemplatePropertyColorState) => BsUiModelTemplatePropertyState;
 /** @private */
 export const createBsColor: (r: number, g: number, b: number, a: number) => BsUiModelTemplatePropertyColorState;
+
+/** @module Types:base */
+export class RuntimeEnvironment {
+    static BrightSign: string;
+    static BaconPreview: string;
+    static Dev: string;
+}
+export interface AutorunState {
+    bsdm: DmState;
+    bacdm: BaContextModelState;
+    bsPlayer: AutorunPlayerState;
+}
+export interface AutorunPlayerState {
+    hsmState: HsmState;
+    presentationData: PresentationDataState;
+    playback: PlaybackState;
+}
+/** @private */
+export type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+/** @private */
+export interface BsUiModelState {
+    template: BsUiModelTemplateState;
+}
+/** @private */
+export const createModel: (template: BsUiModelTemplateState) => BsUiModelState;
+export interface LUT {
+    [key: string]: any;
+}
+export interface AutorunBaseObject {
+    id: string;
+}
+export interface AutorunMap<T extends AutorunBaseObject> {
+    [id: string]: T;
+}
+export interface FileLUT {
+    [fileName: string]: string;
+}
+export interface Dimensions {
+    width: number;
+    height: number;
+}
+
+export type HsmMap = AutorunMap<Hsm>;
+export type HStateMap = AutorunMap<HState>;
+export interface HsmState {
+    hsmById: HsmMap;
+    hStateById: HStateMap;
+    hsmEventQueue: HsmEventType[];
+}
+export interface Hsm {
+    id: string;
+    name: string;
+    type: HsmType;
+    topStateId: string;
+    activeStateId: string | null;
+    initialized: boolean;
+    properties: HsmProperties;
+}
+export type HsmProperties = ZoneHsmProperties | MediaZoneHsmProperties | {};
+export interface ZoneHsmProperties {
+    zoneId: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    initialMediaStateId: string;
+}
+export interface MediaZoneHsmProperties extends ZoneHsmProperties {
+    mediaStateIdToHState: LUT;
+}
+export interface HsmEventType {
+    EventType: string;
+    data?: any;
+    EventData?: any;
+}
+
+export class HsmType {
+    static Player: string;
+    static VideoOrImages: string;
+}
+export class HsmTimerType {
+    static MediaHState: string;
+    static MrssState: string;
+}
+
+export class HStateType {
+    static Top: string;
+    static Player: string;
+    static Playing: string;
+    static Waiting: string;
+    static Image: string;
+    static Mrss: string;
+    static Video: string;
+    static SuperState: string;
+}
+export interface HState {
+    id: string;
+    type: HStateType;
+    hsmId: string;
+    superStateId: string;
+    name: string;
+}
+export interface MediaHState extends HState {
+    data: MediaHStateData;
+}
+export interface MediaHStateData {
+    mediaStateId: string;
+    mediaStateData?: MediaHStateParamsData | null;
+}
+export type MediaHStateParamsData = MediaHStateCustomData;
+export type MediaHStateCustomData = ImageStateData | VideoStateData | SuperStateData | MrssStateData;
+export interface ImageStateData {
+    timeoutId?: number;
+}
+export interface VideoStateData {
+    timeoutId?: number;
+}
+export interface SuperStateData {
+    timeoutId?: number;
+}
+export interface MrssStateData {
+    timeoutId?: number;
+    dataFeedId: string;
+    currentFeedId: string | null;
+    pendingFeedId: string | null;
+    displayIndex: number;
+    firstItemDisplayed: boolean;
+    waitForContentTimer: any;
+}
+export interface HStateSpecification {
+    type: HStateType;
+    hsmId: string;
+    superStateId: string;
+    name: string;
+}
+export interface HSMStateData {
+    nextStateId: string | null;
+}
+
+export interface PlaybackState {
+    videoElementRef: HTMLVideoElement | null;
+}
+
+export interface PresentationDataState {
+    runtimeEnvironment: RuntimeEnvironment;
+    screenDimensions: Dimensions;
+    srcDirectory: string;
+    syncSpecFileMap: SyncSpecFileMap | null;
+    autoSchedule: AutorunSchedule | null;
+}
+export interface SyncSpecFileMap {
+    [name: string]: SyncSpecDownload;
+}
+export interface SyncSpecDownload {
+    name: string;
+    hash: SyncSpecHash;
+    size: number;
+    link: string;
+}
+interface SyncSpecHash {
+    method: string;
+    hex: string;
+}
+interface SyncSpecMeta {
+    client: any;
+    server: any;
+}
+export interface RawSyncSpecFiles {
+    download: SyncSpecDownload[];
+    ignore: any;
+    delete: any;
+}
+export interface RawSyncSpec {
+    meta: SyncSpecMeta;
+    files: RawSyncSpecFiles;
+}
+export {};
+
+export interface AutorunSchedule {
+    scheduledPresentations: ScheduledPresentation[];
+}
+export interface ScheduledPresentation {
+    presentationToSchedule: ScheduledPresentationFileData;
+    presentationLocator: BsAssetLocator;
+    dateTime: string;
+    duration: number;
+    allDayEveryDay: boolean;
+    recurrence: boolean;
+    recurrencePattern: string;
+    recurrencePatternDaily: string;
+    recurrencePatternDaysOfWeek: number;
+    recurrenceStartDate: string;
+    recurrenceGoesForever: boolean;
+    recurrenceEndDate: string;
+    interruption: boolean;
+}
+export interface ScheduledPresentationFileData {
+    name: string;
+    fileName: string;
+    filePath: string;
+}
 
 export enum BsUiErrorType {
     unknownError = 0,
