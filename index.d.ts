@@ -95,7 +95,7 @@ export default class MediaZoneComponent extends React.Component<MediaZoneProps> 
     getEvents(bsdm: DmState, mediaStateId: string): DmEvent[];
     render(): JSX.Element | null;
 }
-export const MediaZone: import("react-redux").ConnectedComponent<typeof MediaZoneComponent, import("react-redux").Omit<React.ClassAttributes<MediaZoneComponent> & MediaZoneProps, "screenDimensions" | "bsdm" | "zoneWidth" | "zoneHeight" | "mediaStateId" | "mrssDisplayIndex" | "zone"> & MediaZonePropsFromParent>;
+export const MediaZone: import("react-redux").ConnectedComponent<typeof MediaZoneComponent, import("react-redux").Omit<React.ClassAttributes<MediaZoneComponent> & MediaZoneProps, "screenDimensions" | "zoneWidth" | "zoneHeight" | "mediaStateId" | "mrssDisplayIndex" | "bsdm" | "zone"> & MediaZonePropsFromParent>;
 
 export interface SignProps {
     bsdm: DmState;
