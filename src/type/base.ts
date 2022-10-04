@@ -65,3 +65,25 @@ export interface Dimensions {
   height: number;
 }
 
+export const autorunStateFromState = (state: any): AutorunState => {
+  if (state.hasOwnProperty('autorun')) {
+    const autorunPlayerState: AutorunPlayerState = (state as any).bsPlayer;
+    const autorunState: AutorunState = {
+      bsdm: state.bsdm,
+      bacdm: state.bacdm,
+      bsPlayer: {
+        playback: autorunPlayerState.playback,
+        presentationData: autorunPlayerState.presentationData,
+        hsmState: autorunPlayerState.hsmState,
+        // arDataFeeds: autorunModelState.arDataFeeds,
+      }
+    };
+    return autorunState;
+  } else if (state.hasOwnProperty('bsPlayer')) {
+    return state;
+  } else {
+    debugger;
+    return state;
+  }
+};
+

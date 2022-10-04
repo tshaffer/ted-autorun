@@ -255,6 +255,35 @@ export const bsUiModelGetTemplatePropertyState: (state: BsUiModelState) => BsUiM
 /** @private */
 export const bsUiModelGetTemplatePropertyColorState: (state: BsUiModelState) => BsUiModelTemplatePropertyColorState;
 
+export function getHsmMap(state: any): HsmMap;
+export function getHsmById(state: any, hsmId: string): Hsm;
+export function getHsmByName(state: AutorunState, hsmName: string): Hsm | null;
+export const getActiveHStateIdByHsmId: (state: AutorunState, hsmId: string) => HState | null;
+export function getHStateById(state: any, hStateId: string | null): HState | null;
+export function getHStateByName(state: any, name: string | null): HState | null;
+export function getHStateByMediaStateId(state: any, hsmId: string, mediaStateId: string | null): HState | null;
+export function getHsmInitialized(state: any, hsmId: string): boolean;
+export function getZoneHsmList(state: any): Hsm[];
+export function getZoneHsmFromZoneId(state: any, zoneId: string): Hsm | null;
+export function getActiveMediaStateId(state: any, zoneId: string): string;
+export function getActiveMrssDisplayIndex(state: any, zoneId: string): number;
+export function getEvents(state: any): HsmEventType[];
+export const getIsHsmInitialized: (state: any) => boolean;
+
+export function getRuntimeEnvironment(state: any): RuntimeEnvironment;
+export function getSrcDirectory(state: any): string;
+export function getScreenDimensions(state: any): Dimensions;
+export const getSyncSpecFileMap: (state: AutorunState) => SyncSpecFileMap | null;
+export const getAutoschedule: (state: any) => AutorunSchedule | null;
+export function getPathFromAssetName(state: AutorunState, assetName: string): string;
+export function getAssetPath(state: AutorunState, assetName: string): string;
+export const getSyncSpecFile: (state: AutorunState, fileName: string) => Promise<any>;
+export function getSyncSpecReferencedFile(fileName: string, syncSpecFileMap: SyncSpecFileMap, rootPath: string): Promise<object>;
+export function getFeedPoolDirectory(state: any): string;
+export function getFeedPoolFilePath(state: any, hashValue: string): string;
+export function feedPoolFileExists(state: any, hashValue: string): string;
+export function getFeedCacheRoot(state: any): string;
+
 /** @module Types:template */
 /** @private */
 export interface BsUiModelTemplateState {
@@ -321,6 +350,7 @@ export interface Dimensions {
     width: number;
     height: number;
 }
+export const autorunStateFromState: (state: any) => AutorunState;
 
 export type HsmMap = AutorunMap<Hsm>;
 export type HStateMap = AutorunMap<HState>;
