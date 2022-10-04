@@ -94,6 +94,40 @@ export const bsUiModelRehydrateModel: (bsUiModelState: BsUiModelState) => Rehydr
 /** @private */
 export type ResetBsUiModelAction = BsUiModelAction<null>;
 export const bsUiModelResetModel: () => ResetBsUiModelAction;
+/** @private */
+export interface AutorunModelBaseAction extends Action {
+    type: string;
+    payload?: {} | null;
+    error?: boolean;
+    meta?: {};
+}
+/** @private */
+export interface AutorunModelAction<T> extends AutorunModelBaseAction {
+    payload: T;
+}
+/** @private */
+export type AutorunModelActionCreator<T> = ActionCreator<AutorunModelAction<T>>;
+export type AutorunModelThunkAction<T> = (dispatch: AutorunDispatch, getState: () => AutorunPlayerState, extraArgument: undefined) => T;
+export interface AutorunBaseAction extends Action {
+    type: string;
+    payload: {} | null;
+    error?: boolean;
+    meta?: {};
+}
+export interface AutorunAction<T> extends AutorunBaseAction {
+    payload: T;
+}
+export type AutorunDispatch = Dispatch<any>;
+export type AutorunVoidThunkAction = any;
+export type AutorunStringThunkAction = any;
+export type AutorunVoidPromiseThunkAction = any;
+export type AutorunThunkAction<T> = any;
+export type AutorunAnyPromiseThunkAction = any;
+export type AutorunActionCreator<T> = ActionCreator<AutorunAction<T>>;
+export interface AutorunModelBatchAction extends Action {
+    type: string;
+    payload: AutorunBaseAction[];
+}
 
 /** @module Model:base */
 export type BsUiReducer = Reducer<BsUiModelState>;
@@ -132,6 +166,78 @@ export const isValidColor: (state: any) => boolean;
 export const isValidTemplatePropertyState: (state: any) => boolean;
 /** @private */
 export const isValidTemplatePropertyStateShallow: (state: any) => boolean;
+
+/** @module Model:template */
+export const ADD_HSM: string;
+export const UPDATE_HSM_PROPERTIES: string;
+export const SET_HSM_TOP: string;
+export const SET_HSM_INITIALIZED: string;
+export const ADD_HSTATE = "ADD_HSTATE";
+export const SET_MEDIA_H_STATE_TIMEOUT_ID = "SET_MEDIA_H_STATE_TIMEOUT_ID";
+export const SET_MEDIA_H_STATE_PARAMETER_DATA = "SET_MEDIA_H_STATE_PARAMETER_DATA";
+export const SET_ACTIVE_HSTATE = "SET_ACTIVE_HSTATE";
+export const QUEUE_HSM_EVENT = "QUEUE_HSM_EVENT";
+export const DEQUEUE_HSM_EVENT = "DEQUEUE_HSM_EVENT";
+export type AddHsmAction = AutorunAction<Partial<Hsm>>;
+export function addHsm(hsm: Hsm): AddHsmAction;
+export interface HsmParams {
+    id: string;
+    zoneId?: string;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    initialMediaStateId?: string;
+    mediaStateIdToHState?: LUT;
+}
+export type UpdateHsmPropertiesAction = AutorunAction<HsmParams>;
+export function updateHsmProperties(params: HsmParams): UpdateHsmPropertiesAction;
+export type SetHsmTopAction = AutorunAction<{}>;
+export function setHsmTop(hsmId: string, topStateId: string): SetHsmTopAction;
+export type SetHsmInitializedAction = AutorunAction<Partial<Hsm>>;
+export function setHsmInitialized(id: string, initialized: boolean): SetHsmInitializedAction;
+export type SetActiveHStateAction = AutorunAction<HState | null | any>;
+export function setActiveHState(hsmId: string, activeState: HState | null): SetActiveHStateAction;
+export type AddHStateAction = AutorunAction<{
+    id: string;
+    type: HStateType;
+    hsmId: string;
+    superStateId: string;
+    name: string;
+    data?: MediaHStateData | null;
+}>;
+export function addHState(id: string, hStateSpecification: HStateSpecification, data?: MediaHStateData | null): AddHStateAction;
+export function setMediaHStateTimeoutId(hStateId: string, timeoutId: number): any;
+export function setMediaHStateParameter(hStateId: string, parameterName: string, parameterValue: any): any;
+export type HsmEventAction = AutorunAction<HsmEventType>;
+export function queueHsmEvent(event: HsmEventType): HsmEventAction;
+export function dequeueHsmEvent(): AutorunBaseAction;
+export const hsmReducer: import("redux").Reducer<import("redux").CombinedState<HsmState>, import("redux").AnyAction>;
+/** @private */
+export const isValidHsmState: (state: any) => boolean;
+
+export const SET_VIDEO_ELEMENT_REF = "SET_VIDEO_ELEMENT_REF";
+export type SetPlaybackAction = AutorunAction<PlaybackState>;
+export const setVideoElementRef: (videoElementRef: HTMLVideoElement | null) => SetPlaybackAction;
+export const playbackDefaults: PlaybackState;
+export const playbackReducer: (state: PlaybackState | undefined, { type, payload }: (SetPlaybackAction)) => PlaybackState;
+
+export const UPDATE_PRESENTATION_DATA = "UPDATE_PRESENTATION_DATA";
+export const UPDATE_RUNTIME_ENVIRONMENT = "UPDATE_RUNTIME_ENVIRONMENT";
+export const UPDATE_PRESENTATION_SRC_DIRECTORY = "UPDATE_PRESENTATION_SRC_DIRECTORY";
+export const UPDATE_SYNC_SPEC_FILE_MAP = "UPDATE_SYNC_SPEC_FILE_MAP";
+export const UPDATE_AUTOSCHEDULE = "UPDATE_AUTOSCHEDULE";
+export const UPDATE_SCREEN_DIMENSIONS = "UPDATE_SCREEN_DIMENSIONS";
+export type UpdatePresentationDataAction = AutorunAction<Partial<PresentationDataState>>;
+export type UpdatePresentationStringAction = AutorunAction<Partial<PresentationDataState>>;
+export function updatePresentationData(presentationDataState: PresentationDataState): UpdatePresentationDataAction;
+export const updateRuntimeEnvironment: (runtimeEnvironment: RuntimeEnvironment) => UpdatePresentationDataAction;
+export const updatePresentationSrcDirectory: (srcDirectory: string) => UpdatePresentationDataAction;
+export const updatePresentationSyncSpecFileMap: (syncSpecFileMap: SyncSpecFileMap) => UpdatePresentationDataAction;
+export const updatePresentationAutoschedule: (autoSchedule: AutorunSchedule) => UpdatePresentationDataAction;
+export const updateScreenDimensions: (screenDimensions: Dimensions) => UpdatePresentationDataAction;
+export const presentationDataDefaults: PresentationDataState;
+export const presentationDataReducer: (state: PresentationDataState | undefined, { type, payload }: (UpdatePresentationDataAction)) => PresentationDataState;
 
 /** @module Selector:base */
 /** @private */
