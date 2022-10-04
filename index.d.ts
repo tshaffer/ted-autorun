@@ -7,11 +7,14 @@
 //   ../../@brightsign/bscore
 
 import * as React from 'react';
+import { Store } from 'redux';
 import { Action, Dispatch, ActionCreator } from 'redux';
 import { Reducer } from 'redux';
 import { DmState } from '@brightsign/bsdatamodel';
 import { BaContextModelState } from '@brightsign/ba-context-model';
 import { BsAssetLocator } from '@brightsign/bscore';
+import { DmZone } from '@brightsign/bsdatamodel';
+import { DmMediaState } from '@brightsign/bsdatamodel';
 
 /** @module Controller:index */
 
@@ -52,6 +55,16 @@ export const resetModel: () => (dispatch: any) => any;
 export const updateTemplateColorAsync: () => (dispatch: any) => Promise<any>;
 /** @private */
 export const updateTemplateColorBatch: () => (dispatch: any) => any;
+
+export const initPresentation: () => AutorunVoidThunkAction;
+export const openSign: (presentationName: string) => (dispatch: AutorunDispatch, getState: () => AutorunState) => any;
+
+export let _bsPpStore: Store<AutorunState>;
+/** @private */
+export function initPlayer(store: Store<AutorunState>): (dispatch: AutorunDispatch) => void;
+/** @private */
+export function launchHsm(): (dispatch: AutorunDispatch) => void;
+export const addHsmEvent: (event: HsmEventType) => AutorunVoidThunkAction;
 
 /** @module Model:base */
 /** @private */
@@ -132,6 +145,9 @@ export interface AutorunModelBatchAction extends Action {
 /** @module Model:base */
 export type BsUiReducer = Reducer<BsUiModelState>;
 export const bsUiModelReducer: BsUiReducer;
+export type AutorunReducer = Reducer<AutorunPlayerState>;
+export const enableBatchingTmp: (reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState) => AutorunReducer;
+export const autorunReducer: AutorunReducer;
 export const isValidBsUiModelState: (state: any) => boolean;
 export const isValidBsUiModelStateShallow: (state: any) => boolean;
 
@@ -526,4 +542,42 @@ export class BsUiError extends Error {
     constructor(type: BsUiErrorType, reason?: string);
 }
 export function isBsUiError(error: Error): error is BsUiError;
+
+export const newAutorunId: () => string;
+
+/** @private */
+export const postVideoEnd: () => any;
+
+export const createHsm: (name: string, type: HsmType, properties: HsmProperties) => AutorunStringThunkAction;
+export function initializeHsm(hsmId: string): AutorunVoidPromiseThunkAction;
+export function constructorFunction(constructorHandler: () => void): void;
+export function hsmDispatch(event: HsmEventType, hsmId: string, activeStateId: string | null): (dispatch: AutorunDispatch, getState: () => AutorunState) => void;
+
+export const createHState: (hStateSpecification: HStateSpecification, data?: MediaHStateData | null) => AutorunStringThunkAction;
+export const createHStateSpecification: (type: string, hsmId: string, superStateId: string, name: string) => HStateSpecification;
+
+export const mediaHStateEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => AutorunVoidThunkAction;
+export const mediaHStateExitHandler: (hStateId: string) => AutorunVoidThunkAction;
+export const launchTimer: (hState: HState) => AutorunVoidThunkAction;
+
+export const createMediaZoneHsm: (hsmName: string, hsmType: HsmType, bsdmZone: DmZone) => AutorunVoidThunkAction;
+export const initializeVideoOrImagesZoneHsm: (hsmId: string) => AutorunVoidThunkAction;
+export const videoOrImagesZoneHsmGetInitialState: (hsmId: string) => AutorunAnyPromiseThunkAction;
+
+export const createPlayerHsm: () => any;
+export const initializePlayerHsm: () => any;
+export const playerHsmGetInitialState: () => AutorunAnyPromiseThunkAction;
+export const STPlayerEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => any;
+export const STPlayingEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => any;
+export const STWaitingEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => any;
+export const launchSchedulePlayback: (presentationName: string) => AutorunVoidPromiseThunkAction;
+export const launchPresentationPlayback: () => AutorunVoidThunkAction;
+
+export const createZoneHsm: (hsmName: string, hsmType: HsmType, hsmData: HsmProperties) => AutorunStringThunkAction;
+
+export const createImageState: (hsmId: string, mediaState: DmMediaState, superStateId: string) => AutorunStringThunkAction;
+export const STImageStateEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => AutorunVoidThunkAction;
+
+export const createVideoState: (hsmId: string, mediaState: DmMediaState, superStateId: string) => AutorunStringThunkAction;
+export const STVideoStateEventHandler: (hState: HState, event: HsmEventType, stateData: HSMStateData) => AutorunVoidThunkAction;
 
