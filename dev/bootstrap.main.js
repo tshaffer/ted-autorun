@@ -124,7 +124,8 @@ function createWindow() {
       // deploying this electron to production
       // see https://electronjs.org/docs/tutorial/security.
       nodeIntegration: true,
-      webSecurity: false
+      webSecurity: false //     nodeIntegrationInWorker: true
+
     }
   }); // Attempt to load application from path provided by parent process
 
@@ -144,7 +145,13 @@ function createWindow() {
 
   mainWindow.loadURL(applicationPath); // Open the DevTools.
 
-  mainWindow.webContents.openDevTools(); // Emitted when the window is closed.
+  mainWindow.webContents.openDevTools();
+  electron__WEBPACK_IMPORTED_MODULE_0__["app"].whenReady().then(() => {
+    electron__WEBPACK_IMPORTED_MODULE_0__["protocol"].registerFileProtocol('file', (request, callback) => {
+      const pathname = request.url.replace('file:///', '');
+      callback(pathname);
+    });
+  }); // Emitted when the window is closed.
 
   mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows

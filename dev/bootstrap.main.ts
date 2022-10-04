@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 import {
   app,
+  protocol,
   BrowserWindow,
   Menu,
 } from 'electron';
@@ -19,6 +20,7 @@ function createWindow() {
       // see https://electronjs.org/docs/tutorial/security.
       nodeIntegration: true,
       webSecurity: false
+      //     nodeIntegrationInWorker: true
     }
   });
 
@@ -39,6 +41,13 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  app.whenReady().then(() => {
+    protocol.registerFileProtocol('file', (request, callback) => {
+      const pathname = request.url.replace('file:///', '');
+      callback(pathname);
+    });
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
