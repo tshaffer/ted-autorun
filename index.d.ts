@@ -225,7 +225,7 @@ export interface AutorunModelBatchAction extends Action {
 export type BsUiReducer = Reducer<BsUiModelState>;
 export const bsUiModelReducer: BsUiReducer;
 export type AutorunReducer = Reducer<AutorunPlayerState>;
-export const enableBatchingTmp: (reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState) => AutorunReducer;
+export const enableBatching: (reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState) => AutorunReducer;
 export const autorunReducer: AutorunReducer;
 export const isValidBsUiModelState: (state: any) => boolean;
 export const isValidBsUiModelStateShallow: (state: any) => boolean;

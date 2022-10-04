@@ -109,6 +109,7 @@
   },
   "dependencies": {
     "@brightsign/ba-context-model": "1.4.1",
+    "@brightsign/ba-schedule": "1.0.2",
     "@brightsign/bscore": "1.3.8",
     "@brightsign/bsdatamodel": "1.2.6"
   },

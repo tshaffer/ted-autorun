@@ -31,7 +31,7 @@ import { playbackReducer } from './playback';
 // -----------------------------------------------------------------------
 
 export type BsUiReducer = Reducer<BsUiModelState>;
-const enableBatching = (
+const enableBatchingOld = (
     reduce: (state: BsUiModelState, action: BsUiModelBaseAction | BsUiModelBatchAction) => BsUiModelState,
 ): BsUiReducer => {
   return function batchingReducer(
@@ -47,12 +47,12 @@ const enableBatching = (
   };
 };
 
-export const bsUiModelReducer: BsUiReducer = enableBatching(combineReducers<BsUiModelState>({
+export const bsUiModelReducer: BsUiReducer = enableBatchingOld(combineReducers<BsUiModelState>({
   template: templateReducer,
 }));
 
 export type AutorunReducer = Reducer<AutorunPlayerState>;
-export const enableBatchingTmp = (
+export const enableBatching = (
   reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState,
 ): AutorunReducer => {
   return function batchingReducer(
@@ -66,7 +66,7 @@ export const enableBatchingTmp = (
   };
 };
 
-export const autorunReducer = enableBatchingTmp(combineReducers<AutorunPlayerState>({
+export const autorunReducer = enableBatching(combineReducers<AutorunPlayerState>({
   hsmState: hsmReducer,
   playback: playbackReducer,
   presentationData: presentationDataReducer,
