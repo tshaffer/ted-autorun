@@ -54,7 +54,7 @@ export const bsUiModelReducer: BsUiReducer = enableBatching(combineReducers<BsUi
 export type AutorunReducer = Reducer<AutorunPlayerState>;
 export const enableBatchingTmp = (
   reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState,
-): BsUiReducer => {
+): AutorunReducer => {
   return function batchingReducer(
     state: AutorunPlayerState,
     action: AutorunModelBaseAction,
