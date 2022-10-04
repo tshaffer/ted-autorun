@@ -2,6 +2,8 @@ import { isNil } from 'lodash';
 import isomorphicPath from 'isomorphic-path';
 import * as fs from 'fs-extra';
 
+import { Mode } from '@brightsign/videomodeconfiguration';
+
 import {
   AutorunState, autorunStateFromState,
   RawSyncSpec,
@@ -62,9 +64,25 @@ const loadPresentationData = (): AutorunVoidPromiseThunkAction => {
 
 const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
   return ((dispatch: AutorunDispatch) => {
-    // const runtimeEnvironment: RuntimeEnvironment = RuntimeEnvironment.BaconPreview;
-    // let runtimeEnvironment: RuntimeEnvironment = RuntimeEnvironment.Dev;
+
     let runtimeEnvironment = RuntimeEnvironment.Dev;
+
+    try {
+      const VideoModeConfiguration = require("@brightsign/videomodeconfiguration");
+      var videoConfig = new VideoModeConfiguration();
+      videoConfig.getAvailableModes()
+        .then( (modes: Mode[]) => {
+          if (modes.length > 0) {
+            runtimeEnvironment = RuntimeEnvironment.BrightSign;
+
+          }
+        }).catch((e: any) => {
+          console.log('videoConfig.getAvailableModes() failure: ', e);
+        })
+    } catch (e: any) {
+      runtimeEnvironment = RuntimeEnvironment.Dev;
+      console.log('VideoModeConfigurationClass failure: ', e);
+    }
 
     // try {
     //   const gpio = new BSControlPort('BrightSign') as BSControlPort;
