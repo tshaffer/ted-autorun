@@ -5,16 +5,20 @@ import {
   combineReducers
 } from 'redux';
 import { isNil } from 'lodash';
-import { BsUiModelState } from '../type';
+import { AutorunPlayerState, BsUiModelState } from '../type';
 import {
   BSUIMODEL_BATCH,
   BsUiModelBaseAction,
   BsUiModelBatchAction,
+  AutorunModelBaseAction,
 } from './baseAction';
 import {
   templateReducer,
   isValidTemplateState,
 } from './template';
+import { hsmReducer } from './hsm';
+import { presentationDataReducer } from './presentation';
+import { playbackReducer } from './playback';
 
 // -----------------------------------------------------------------------
 // Defaults
@@ -46,6 +50,28 @@ const enableBatching = (
 export const bsUiModelReducer: BsUiReducer = enableBatching(combineReducers<BsUiModelState>({
   template: templateReducer,
 }));
+
+export type AutorunReducer = Reducer<AutorunPlayerState>;
+export const enableBatchingTmp = (
+  reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState,
+): BsUiReducer => {
+  return function batchingReducer(
+    state: AutorunPlayerState,
+    action: AutorunModelBaseAction,
+  ): AutorunPlayerState {
+    switch (action.type) {
+      default:
+        return reduce(state, action);
+    }
+  };
+};
+
+export const autorunReducer = enableBatchingTmp(combineReducers<AutorunPlayerState>({
+  hsmState: hsmReducer,
+  playback: playbackReducer,
+  presentationData: presentationDataReducer,
+}));
+
 
 // -----------------------------------------------------------------------
 // Validators
