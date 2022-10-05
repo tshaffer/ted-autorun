@@ -84,6 +84,7 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
     }
 
     // TEDTODO
+    // runtimeEnvironment = RuntimeEnvironment.Dev;
     runtimeEnvironment = RuntimeEnvironment.BrightSign;
 
     dispatch(updateRuntimeEnvironment(runtimeEnvironment));
@@ -111,7 +112,8 @@ const setSrcDirectory = (): AutorunVoidThunkAction => {
       } else if (runtimeEnvironment === RuntimeEnvironment.BaconPreview) {
         srcDirectory = '/Users/tedshaffer/Desktop/autotron-2020';
       } else {
-        srcDirectory = '/storage/sd';
+        // srcDirectory = '/storage/sd';
+        srcDirectory = '';
         process.chdir('/storage/sd');
       }
     } catch (e) {
