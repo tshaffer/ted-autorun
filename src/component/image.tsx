@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { isNil } from 'lodash';
-import isomorphicPath from 'isomorphic-path';
+// import isomorphicPath from 'isomorphic-path';
 
 import { connect } from 'react-redux';
 import { getAssetPath } from '../selector';
@@ -31,9 +31,11 @@ export class ImageComponent extends React.Component<ImageProps> {
 
   render() {
 
-    const src: string = isomorphicPath.join('file://', this.props.filePath);
+    // const src: string = isomorphicPath.join('file://', this.props.filePath);
+    const src = 'file:///pool/c/1/sha1-7b8e832f587ea9488184c35f4bdcc176ffdf57c1';
 
-    // console.log(this.props.filePath);
+    console.log('ImageComponent#render: ');
+    console.log(src);
 
     const dimensions = sizeOf(this.props.filePath);
     if (isNil(dimensions)) {

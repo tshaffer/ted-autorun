@@ -85,28 +85,7 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
 
     // TEDTODO
     runtimeEnvironment = RuntimeEnvironment.BrightSign;
-    
-    // try {
-    //   const gpio = new BSControlPort('BrightSign') as BSControlPort;
-    //   console.log('create controlPort: ');
-    //   console.log(gpio);
-    //   runtimeEnvironment = RuntimeEnvironment.BrightSign;
-    // } catch (e) {
-    //   console.log('failed to create controlPort: ', e);
-    // }
-    // const BSDeviceInfo = require('BSDeviceInfo');
-    // const deviceInfo = new BSDeviceInfo();
-    // console.log(deviceInfo);
 
-    // try {
-    //   const gpio = new BSControlPort('BrightSign') as BSControlPort;
-    //   console.log('create controlPort: ');
-    //   console.log(gpio);
-    //   runtimeEnvironment = RuntimeEnvironment.BrightSign;
-    // } catch (e) {
-    //   // runtimeEnvironment = 'Desktop';
-    //   console.log('failed to create controlPort: ');
-    // }
     dispatch(updateRuntimeEnvironment(runtimeEnvironment));
   });
 };
@@ -114,15 +93,10 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
 const setSrcDirectory = (): AutorunVoidThunkAction => {
   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
 
-    console.log('setSrcDirectory - 0');
     const process = require('process');
-    console.log('setSrcDirectory - 1');
 
     const autorunState: AutorunState = autorunStateFromState(getState());
-    console.log('setSrcDirectory - 2');
     const runtimeEnvironment: RuntimeEnvironment = getRuntimeEnvironment(autorunState);
-    console.log('setSrcDirectory - 3');
-    console.log(runtimeEnvironment);
     let srcDirectory = '';
     try {
       if (runtimeEnvironment === RuntimeEnvironment.Dev) {
@@ -134,27 +108,16 @@ const setSrcDirectory = (): AutorunVoidThunkAction => {
         }));
 
         srcDirectory = process.env.SOURCE_DIRECTORY;
-        console.log('srcDirectory - 0');
-        console.log(srcDirectory);
       } else if (runtimeEnvironment === RuntimeEnvironment.BaconPreview) {
         srcDirectory = '/Users/tedshaffer/Desktop/autotron-2020';
-        console.log('srcDirectory - 1');
-        console.log(srcDirectory);
       } else {
         srcDirectory = '/storage/sd';
-        console.log('srcDirectory - 2');
-        console.log(srcDirectory);
         process.chdir('/storage/sd');
-        console.log('srcDirectory - 3');
-        console.log(srcDirectory);
       }
     } catch (e) {
       console.log('setSrcDirectory error caught');
       console.log(e);
     }
-    console.log('setSrcDirectory - 4');
-    console.log('srcDirectory');
-    console.log(srcDirectory);
     dispatch(updatePresentationSrcDirectory(srcDirectory));
   });
 };
@@ -191,17 +154,6 @@ const setAutoschedule = (): AutorunVoidPromiseThunkAction => {
 };
 
 function getSyncSpec(rootDirectory: string): Promise<RawSyncSpec> {
-  console.log('getSyncSpec: ');
-  console.log(rootDirectory);
-
-  console.log('/sd:/local-sync.json');
-  const sdExists = fs.pathExistsSync('sd:/local-sync.json');
-  console.log(sdExists);
-
-  console.log('/storage/sd/local-sync.json');
-  const storageSd = fs.pathExistsSync('/storage/sd/local-sync.json');
-  console.log(storageSd);
-
   return getSyncSpecFilePath(rootDirectory)
     .then((syncSpecFilePath: string | null) => {
       if (!syncSpecFilePath) {
@@ -214,8 +166,6 @@ function getSyncSpec(rootDirectory: string): Promise<RawSyncSpec> {
 }
 
 function getSyncSpecFilePath(rootDirectory: string): Promise<string | null> {
-  console.log('getSyncSpecFilePath: ');
-  console.log(rootDirectory);
   return getLocalSyncSpec(rootDirectory)
     .then((localSyncSpecFilePath) => {
       if (isNil(localSyncSpecFilePath)) {
@@ -240,12 +190,8 @@ function getNetworkedSyncSpec(rootDirectory: string): Promise<string | null> {
 
 function getLocalSyncSpec(rootDirectory: string): Promise<string | null> {
   const filePath: string = getLocalSyncSpecFilePath(rootDirectory);
-  console.log('getLocalSyncSpec: ');
-  console.log(filePath);
   return fs.pathExists(filePath)
     .then((exists: boolean) => {
-      console.log('pathExists');
-      console.log(exists);
       if (exists) {
         return Promise.resolve(filePath);
       } else {
