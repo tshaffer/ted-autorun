@@ -2,6 +2,7 @@ import { isNil } from 'lodash';
 import isomorphicPath from 'isomorphic-path';
 import * as fs from 'fs-extra';
 
+import HostConfig from '@brightsign/hostconfiguration';
 import { Mode } from '@brightsign/videomodeconfiguration';
 
 import {
@@ -66,6 +67,29 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
   return ((dispatch: AutorunDispatch) => {
 
     let runtimeEnvironment = RuntimeEnvironment.Dev;
+
+    try {
+      console.log('******************* create HostConfig');
+      const hc = new HostConfig();
+      console.log('******************* HostConfig created');
+      hc.getConfig()
+        .then( (config) => {
+          console.log('Host config keys and values: ');
+          console.log(Object.keys(config));
+          console.log(Object.values(config));
+
+          console.log('hostName');
+          console.log(config['hostName']);
+          console.log(config.hostName);
+          
+        }).catch( (e: any) => {
+          console.log('hostConfig.getConfig error: ');
+          console.log(e);
+        })
+    } catch(e) {
+      console.log('hostConfig error ');
+      console.log(e);
+    }
 
     try {
       const VideoModeConfiguration = require("@brightsign/videomodeconfiguration");
