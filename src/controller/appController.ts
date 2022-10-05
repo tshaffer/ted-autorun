@@ -71,10 +71,9 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
       const VideoModeConfiguration = require("@brightsign/videomodeconfiguration");
       var videoConfig = new VideoModeConfiguration();
       videoConfig.getAvailableModes()
-        .then( (modes: Mode[]) => {
+        .then((modes: Mode[]) => {
           if (modes.length > 0) {
             runtimeEnvironment = RuntimeEnvironment.BrightSign;
-
           }
         }).catch((e: any) => {
           console.log('videoConfig.getAvailableModes() failure: ', e);
@@ -84,6 +83,9 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
       console.log('VideoModeConfigurationClass failure: ', e);
     }
 
+    // TEDTODO
+    runtimeEnvironment = RuntimeEnvironment.BrightSign;
+    
     // try {
     //   const gpio = new BSControlPort('BrightSign') as BSControlPort;
     //   console.log('create controlPort: ');
@@ -112,25 +114,47 @@ const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
 const setSrcDirectory = (): AutorunVoidThunkAction => {
   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
 
+    console.log('setSrcDirectory - 0');
     const process = require('process');
+    console.log('setSrcDirectory - 1');
 
-    const bsPpState: AutorunState = autorunStateFromState(getState());
-    const runtimeEnvironment: RuntimeEnvironment = getRuntimeEnvironment(bsPpState);
+    const autorunState: AutorunState = autorunStateFromState(getState());
+    console.log('setSrcDirectory - 2');
+    const runtimeEnvironment: RuntimeEnvironment = getRuntimeEnvironment(autorunState);
+    console.log('setSrcDirectory - 3');
+    console.log(runtimeEnvironment);
     let srcDirectory = '';
-    if (runtimeEnvironment === RuntimeEnvironment.Dev) {
-      require('dotenv').config();
+    try {
+      if (runtimeEnvironment === RuntimeEnvironment.Dev) {
+        require('dotenv').config();
 
-      dispatch(updateScreenDimensions({
-        width: process.env.SCREEN_WIDTH,
-        height: process.env.SCREEN_HEIGHT,
-      }));
+        dispatch(updateScreenDimensions({
+          width: process.env.SCREEN_WIDTH,
+          height: process.env.SCREEN_HEIGHT,
+        }));
 
-      srcDirectory = process.env.SOURCE_DIRECTORY;
-    } else if (runtimeEnvironment === RuntimeEnvironment.BaconPreview) {
-      srcDirectory = '/Users/tedshaffer/Desktop/autotron-2020';
-    } else {
-      process.chdir('/storage/sd');
+        srcDirectory = process.env.SOURCE_DIRECTORY;
+        console.log('srcDirectory - 0');
+        console.log(srcDirectory);
+      } else if (runtimeEnvironment === RuntimeEnvironment.BaconPreview) {
+        srcDirectory = '/Users/tedshaffer/Desktop/autotron-2020';
+        console.log('srcDirectory - 1');
+        console.log(srcDirectory);
+      } else {
+        srcDirectory = '/storage/sd';
+        console.log('srcDirectory - 2');
+        console.log(srcDirectory);
+        process.chdir('/storage/sd');
+        console.log('srcDirectory - 3');
+        console.log(srcDirectory);
+      }
+    } catch (e) {
+      console.log('setSrcDirectory error caught');
+      console.log(e);
     }
+    console.log('setSrcDirectory - 4');
+    console.log('srcDirectory');
+    console.log(srcDirectory);
     dispatch(updatePresentationSrcDirectory(srcDirectory));
   });
 };
@@ -139,8 +163,8 @@ const setSrcDirectory = (): AutorunVoidThunkAction => {
 
 const setSyncSpec = (): AutorunVoidPromiseThunkAction => {
   return ((dispatch: AutorunDispatch, getState: () => any) => {
-    const bsPpState: AutorunState = autorunStateFromState(getState());
-    const srcDirectory = getSrcDirectory(bsPpState);
+    const autorunState: AutorunState = autorunStateFromState(getState());
+    const srcDirectory = getSrcDirectory(autorunState);
     return getSyncSpec(srcDirectory)
       .then((syncSpec) => {
         const syncSpecFileMap: SyncSpecFileMap = {};
@@ -156,8 +180,8 @@ const setSyncSpec = (): AutorunVoidPromiseThunkAction => {
 const setAutoschedule = (): AutorunVoidPromiseThunkAction => {
   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
     return new Promise((resolve, reject) => {
-      const bsPpState: AutorunState = autorunStateFromState(getState());
-      getSyncSpecFile(bsPpState, 'autoschedule.json')
+      const autorunState: AutorunState = autorunStateFromState(getState());
+      getSyncSpecFile(autorunState, 'autoschedule.json')
         .then((autoSchedule: AutorunSchedule) => {
           dispatch(updatePresentationAutoschedule(autoSchedule));
           return resolve(null);
@@ -167,6 +191,17 @@ const setAutoschedule = (): AutorunVoidPromiseThunkAction => {
 };
 
 function getSyncSpec(rootDirectory: string): Promise<RawSyncSpec> {
+  console.log('getSyncSpec: ');
+  console.log(rootDirectory);
+
+  console.log('/sd:/local-sync.json');
+  const sdExists = fs.pathExistsSync('sd:/local-sync.json');
+  console.log(sdExists);
+
+  console.log('/storage/sd/local-sync.json');
+  const storageSd = fs.pathExistsSync('/storage/sd/local-sync.json');
+  console.log(storageSd);
+
   return getSyncSpecFilePath(rootDirectory)
     .then((syncSpecFilePath: string | null) => {
       if (!syncSpecFilePath) {
@@ -179,6 +214,8 @@ function getSyncSpec(rootDirectory: string): Promise<RawSyncSpec> {
 }
 
 function getSyncSpecFilePath(rootDirectory: string): Promise<string | null> {
+  console.log('getSyncSpecFilePath: ');
+  console.log(rootDirectory);
   return getLocalSyncSpec(rootDirectory)
     .then((localSyncSpecFilePath) => {
       if (isNil(localSyncSpecFilePath)) {
@@ -203,8 +240,12 @@ function getNetworkedSyncSpec(rootDirectory: string): Promise<string | null> {
 
 function getLocalSyncSpec(rootDirectory: string): Promise<string | null> {
   const filePath: string = getLocalSyncSpecFilePath(rootDirectory);
+  console.log('getLocalSyncSpec: ');
+  console.log(filePath);
   return fs.pathExists(filePath)
     .then((exists: boolean) => {
+      console.log('pathExists');
+      console.log(exists);
       if (exists) {
         return Promise.resolve(filePath);
       } else {
@@ -280,36 +321,36 @@ const openSignDev = (presentationName: string) => {
 //   });
 // };
 
-// const openSignBrightSign = (presentationName: string) => {
-//   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
+const openSignBrightSign = (presentationName: string) => {
+  return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
 
-//     const autoSchedule: AutorunSchedule | null = getAutoschedule(autorunStateFromState(getState()));
-//     if (!isNil(autoSchedule)) {
+    const autoSchedule: AutorunSchedule | null = getAutoschedule(autorunStateFromState(getState()));
+    if (!isNil(autoSchedule)) {
 
-//       //  - only a single scheduled item is currently supported
-//       const scheduledPresentation = autoSchedule!.scheduledPresentations[0];
-//       const presentationToSchedule = scheduledPresentation.presentationToSchedule;
-//       presentationName = presentationToSchedule.name;
-//       const autoplayFileName = presentationName + '.bml';
+      //  - only a single scheduled item is currently supported
+      const scheduledPresentation = autoSchedule!.scheduledPresentations[0];
+      const presentationToSchedule = scheduledPresentation.presentationToSchedule;
+      presentationName = presentationToSchedule.name;
+      const autoplayFileName = presentationName + '.bml';
 
-//       const syncSpecFileMap = getSyncSpecFileMap(autorunStateFromState(getState()));
-//       if (!isNil(syncSpecFileMap)) {
-//         return getSyncSpecReferencedFile(
-//           autoplayFileName,
-//           syncSpecFileMap!,
-//           getSrcDirectory(autorunStateFromState(getState())))
-//           .then((bpfxState: any) => {
-//             const autoPlay: any = bpfxState.bsdm;
-//             const signState = autoPlay as DmSignState;
-//             dispatch(dmOpenSign(signState));
-//           });
-//       }
-//       return Promise.resolve();
-//     } else {
-//       return Promise.resolve();
-//     }
-//   });
-// };
+      const syncSpecFileMap = getSyncSpecFileMap(autorunStateFromState(getState()));
+      if (!isNil(syncSpecFileMap)) {
+        return getSyncSpecReferencedFile(
+          autoplayFileName,
+          syncSpecFileMap!,
+          getSrcDirectory(autorunStateFromState(getState())))
+          .then((bpfxState: any) => {
+            const autoPlay: any = bpfxState.bsdm;
+            const signState = autoPlay as DmSignState;
+            dispatch(dmOpenSign(signState));
+          });
+      }
+      return Promise.resolve();
+    } else {
+      return Promise.resolve();
+    }
+  });
+};
 
 export const openSign = (presentationName: string) => {
 
@@ -326,9 +367,9 @@ export const openSign = (presentationName: string) => {
       const promise = dispatch(action as any);
       return promise;
     } else {
-      // const action = openSignBrightSign(presentationName);
-      // const promise = dispatch(action as any);
-      // return promise;
+      const action = openSignBrightSign(presentationName);
+      const promise = dispatch(action as any);
+      return promise;
     }
   });
 };

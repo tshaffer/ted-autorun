@@ -33,7 +33,19 @@ export function getRuntimeEnvironment(state: any): RuntimeEnvironment {
 }
 
 export function getSrcDirectory(state: any): string {
+  
   const autorunState: AutorunState = autorunStateFromState(state);
+  
+  console.log('getSrcDirectory');
+  console.log(isNil(autorunState.bsPlayer));
+  if (!isNil(autorunState.bsPlayer)) {
+    console.log(isNil(autorunState.bsPlayer.presentationData));
+    if (!isNil(autorunState.bsPlayer.presentationData.srcDirectory)) {
+      console.log(autorunState.bsPlayer.presentationData.srcDirectory);
+    }
+  }
+  console.log('end of getSrcDirectory diagnostics');
+  
   if (
     !isNil(autorunState.bsPlayer)
     && !isNil(autorunState.bsPlayer.presentationData)
