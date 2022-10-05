@@ -77,7 +77,7 @@ export interface ImageProps extends ImagePropsFromParent {
 export class ImageComponent extends React.Component<ImageProps> {
     render(): JSX.Element | null;
 }
-export const Image: import("react-redux").ConnectedComponent<typeof ImageComponent, import("react-redux").Omit<React.ClassAttributes<ImageComponent> & ImageProps, "screenDimensions" | "zoneWidth" | "zoneHeight" | "filePath" | "assetName"> & ImagePropsFromParent>;
+export const Image: import("react-redux").ConnectedComponent<typeof ImageComponent, import("react-redux").Omit<React.ClassAttributes<ImageComponent> & ImageProps, "screenDimensions" | "filePath" | "assetName" | "zoneWidth" | "zoneHeight"> & ImagePropsFromParent>;
 
 export interface MediaZonePropsFromParent {
     bsdm: DmState;
@@ -95,7 +95,7 @@ export default class MediaZoneComponent extends React.Component<MediaZoneProps> 
     getEvents(bsdm: DmState, mediaStateId: string): DmEvent[];
     render(): JSX.Element | null;
 }
-export const MediaZone: import("react-redux").ConnectedComponent<typeof MediaZoneComponent, import("react-redux").Omit<React.ClassAttributes<MediaZoneComponent> & MediaZoneProps, "screenDimensions" | "bsdm" | "mediaStateId" | "mrssDisplayIndex" | "zone" | "zoneWidth" | "zoneHeight"> & MediaZonePropsFromParent>;
+export const MediaZone: import("react-redux").ConnectedComponent<typeof MediaZoneComponent, import("react-redux").Omit<React.ClassAttributes<MediaZoneComponent> & MediaZoneProps, "screenDimensions" | "bsdm" | "zoneWidth" | "zoneHeight" | "mediaStateId" | "mrssDisplayIndex" | "zone"> & MediaZonePropsFromParent>;
 
 export interface SignProps {
     bsdm: DmState;

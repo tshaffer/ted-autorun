@@ -3,15 +3,12 @@ import isomorphicPath from 'isomorphic-path';
 import * as fs from 'fs-extra';
 
 import HostConfig from '@brightsign/hostconfiguration';
-import { Mode } from '@brightsign/videomodeconfiguration';
 
 import {
   AutorunState, autorunStateFromState,
   RawSyncSpec,
   AutorunSchedule,
   SyncSpecFileMap,
-  //   autorunStateFromState,
-  //   RuntimeEnvironment,
 } from '../type';
 import {
   AutorunDispatch,
@@ -25,11 +22,7 @@ import { RuntimeEnvironment } from '../type';
 
 import {
   updatePresentationAutoschedule,
-  //   updateRuntimeEnvironment,
-  //   updatePresentationSrcDirectory,
   updatePresentationSyncSpecFileMap,
-  //   updatePresentationAutoschedule,
-  //   updateScreenDimensions
 } from '../model/presentation';
 import {
   getRuntimeEnvironment,
@@ -41,8 +34,6 @@ import {
 } from '../selector';
 import { launchHsm } from './hsmController';
 import { DmSignState, dmOpenSign } from '@brightsign/bsdatamodel';
-// import { baCmGetPresentationLocator } from '@brightsign/ba-context-model';
-// import { BsAssetLocator } from '@brightsign/bscore';
 
 export const initPresentation = (): AutorunVoidThunkAction => {
   return ((dispatch: AutorunDispatch) => {
@@ -52,67 +43,37 @@ export const initPresentation = (): AutorunVoidThunkAction => {
   });
 };
 
-const loadPresentationData = (): AutorunVoidPromiseThunkAction => {
-  return ((dispatch: AutorunDispatch) => {
-    dispatch(setRuntimeEnvironment());
-    dispatch(setSrcDirectory());
-    return dispatch(setSyncSpec())
-      .then(() => {
-        return dispatch(setAutoschedule());
-      });
-  });
+const getHostConfig = (): Promise<string> => {
+  const hc = new HostConfig();
+  return hc.getConfig()
+    .then((config) => {
+      console.log('config.hostName');
+      return Promise.resolve(config['hostName']);
+    }).catch((e: any) => {
+      console.log('hostConfig.getConfig error: ');
+      console.log(e);
+      return Promise.resolve('myplayer');
+    })
 };
 
-const setRuntimeEnvironment = (): AutorunVoidThunkAction => {
+const loadPresentationData = (): AutorunVoidPromiseThunkAction => {
   return ((dispatch: AutorunDispatch) => {
 
-    let runtimeEnvironment = RuntimeEnvironment.Dev;
+    let runtimeEnvironment: RuntimeEnvironment = RuntimeEnvironment.Dev;
 
-    try {
-      console.log('******************* create HostConfig');
-      const hc = new HostConfig();
-      console.log('******************* HostConfig created');
-      hc.getConfig()
-        .then( (config) => {
-          console.log('Host config keys and values: ');
-          console.log(Object.keys(config));
-          console.log(Object.values(config));
-
-          console.log('hostName');
-          console.log(config['hostName']);
-          console.log(config.hostName);
-          
-        }).catch( (e: any) => {
-          console.log('hostConfig.getConfig error: ');
-          console.log(e);
-        })
-    } catch(e) {
-      console.log('hostConfig error ');
-      console.log(e);
-    }
-
-    try {
-      const VideoModeConfiguration = require("@brightsign/videomodeconfiguration");
-      var videoConfig = new VideoModeConfiguration();
-      videoConfig.getAvailableModes()
-        .then((modes: Mode[]) => {
-          if (modes.length > 0) {
-            runtimeEnvironment = RuntimeEnvironment.BrightSign;
-          }
-        }).catch((e: any) => {
-          console.log('videoConfig.getAvailableModes() failure: ', e);
-        })
-    } catch (e: any) {
-      runtimeEnvironment = RuntimeEnvironment.Dev;
-      console.log('VideoModeConfigurationClass failure: ', e);
-    }
-
-    // TEDTODO
-    // runtimeEnvironment = RuntimeEnvironment.Dev;
-    runtimeEnvironment = RuntimeEnvironment.BrightSign;
-
-    dispatch(updateRuntimeEnvironment(runtimeEnvironment));
-  });
+    return getHostConfig()
+      .then((hostName: string) => {
+        if (hostName !== 'myplayer') {
+          runtimeEnvironment = RuntimeEnvironment.BrightSign;
+        }
+        dispatch(updateRuntimeEnvironment(runtimeEnvironment));
+        dispatch(setSrcDirectory());
+        return dispatch(setSyncSpec())
+          .then(() => {
+            return dispatch(setAutoschedule());
+          });
+      });
+    });
 };
 
 const setSrcDirectory = (): AutorunVoidThunkAction => {
@@ -136,7 +97,6 @@ const setSrcDirectory = (): AutorunVoidThunkAction => {
       } else if (runtimeEnvironment === RuntimeEnvironment.BaconPreview) {
         srcDirectory = '/Users/tedshaffer/Desktop/autotron-2020';
       } else {
-        // srcDirectory = '/storage/sd';
         srcDirectory = '';
         process.chdir('/storage/sd');
       }
@@ -272,26 +232,6 @@ const openSignDev = (presentationName: string) => {
     }
   });
 };
-
-// const openSignBaconPreview = (presentationName: string) => {
-//   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
-//     const state = getState();
-//     const presentationLocator: BsAssetLocator | null = baCmGetPresentationLocator(state);
-//     if (!isNil(presentationLocator)) {
-//       const filePath: string = isomorphicPath.join(presentationLocator.path, presentationLocator.name);
-//       return fs.readFile(filePath, 'utf8')
-//         .then((fileStr: string) => {
-//           const file: any = JSON.parse(fileStr);
-//           dispatch(dmOpenSign(file.bsdm));
-//           return Promise.resolve();
-//         });
-
-//     } else {
-//       debugger;
-//       return Promise.resolve();
-//     }
-//   });
-// };
 
 const openSignBrightSign = (presentationName: string) => {
   return ((dispatch: AutorunDispatch, getState: () => AutorunState) => {
