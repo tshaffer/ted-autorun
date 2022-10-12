@@ -27,30 +27,6 @@ import { BsAssetLocator } from '@brightsign/bscore';
 
 /** @module Types:index */
 
-/** @internal */
-export interface TemplateProps {
-    color: BsUiModelTemplatePropertyColorState;
-    onInitModel: () => any;
-    onResetModel: () => any;
-    onUpdateTemplateColorAsync: () => any;
-    onUpdateTemplateColorBatch: () => any;
-}
-export class TemplateComponent extends React.Component<TemplateProps> {
-    componentDidMount(): void;
-    componentWillUnmount(): void;
-    renderComponent(): JSX.Element;
-    renderModel(): JSX.Element;
-    renderController(): JSX.Element;
-    renderType(): JSX.Element;
-    renderError(): JSX.Element;
-    renderJavaScript(): JSX.Element;
-    renderBrightSignObject(): JSX.Element;
-    renderHeader(): JSX.Element;
-    renderBody(): JSX.Element;
-    render(): JSX.Element;
-}
-export const Template: import("react-redux").ConnectedComponent<typeof TemplateComponent, import("react-redux").Omit<React.ClassAttributes<TemplateComponent> & TemplateProps, "color" | "onInitModel" | "onResetModel" | "onUpdateTemplateColorAsync" | "onUpdateTemplateColorBatch">>;
-
 /** @private */
 export interface AutorunProps {
     autoschedule: AutorunSchedule | null;
@@ -127,14 +103,6 @@ export class VideoComponent extends React.Component<any> {
 }
 export const Video: import("react-redux").ConnectedComponent<typeof VideoComponent, import("react-redux").Omit<any, string | number | symbol> & VideoPropsFromParent>;
 
-export const initModel: () => (dispatch: any) => Promise<any>;
-export const resetModel: () => (dispatch: any) => any;
-
-/** @private */
-export const updateTemplateColorAsync: () => (dispatch: any) => Promise<any>;
-/** @private */
-export const updateTemplateColorBatch: () => (dispatch: any) => any;
-
 export const initPresentation: () => AutorunVoidThunkAction;
 export const openSign: (presentationName: string) => (dispatch: AutorunDispatch, getState: () => AutorunState) => any;
 
@@ -146,46 +114,6 @@ export function launchHsm(): (dispatch: AutorunDispatch) => void;
 export const addHsmEvent: (event: HsmEventType) => AutorunVoidThunkAction;
 
 /** @module Model:base */
-/** @private */
-export const BSUIMODEL_BATCH = "BSUIMODEL_BATCH";
-/** @private */
-export const BSUIMODEL_REHYDRATE = "BSUIMODEL_REHYDRATE";
-/** @private */
-export const BSUIMODEL_RESET = "BSUIMODEL_RESET";
-/** @private */
-export type BsUiModelDispatch = Dispatch<any>;
-/** @private */
-export interface BsUiModelBaseAction extends Action {
-    type: string;
-    payload: {};
-    error?: boolean;
-    meta?: {};
-}
-/** @private */
-export interface BsUiModelAction<T> extends BsUiModelBaseAction {
-    payload: T;
-}
-/** @private */
-export type BsUiModelActionCreator<T> = ActionCreator<BsUiModelAction<T>>;
-/** @private */
-export type BsUiModelThunkAction<T> = (dispatch: BsUiModelDispatch, getState: () => BsUiModelState, extraArgument: undefined) => T;
-/** @private */
-export const bsUiModelBatchAction: (action: BsUiModelBaseAction[]) => BsUiModelBatchAction;
-/** @private */
-export interface BsUiModelBatchAction extends Action {
-    type: string;
-    payload: BsUiModelBaseAction[];
-}
-/** @private */
-export interface RehydrateBsUiModelParams {
-    newBsUiModelState: BsUiModelState;
-}
-/** @private */
-export type RehydrateBsUiModelAction = BsUiModelAction<RehydrateBsUiModelParams>;
-export const bsUiModelRehydrateModel: (bsUiModelState: BsUiModelState) => RehydrateBsUiModelAction;
-/** @private */
-export type ResetBsUiModelAction = BsUiModelAction<null>;
-export const bsUiModelResetModel: () => ResetBsUiModelAction;
 /** @private */
 export interface AutorunModelBaseAction extends Action {
     type: string;
@@ -222,47 +150,10 @@ export interface AutorunModelBatchAction extends Action {
 }
 
 /** @module Model:base */
-export type BsUiReducer = Reducer<BsUiModelState>;
-export const bsUiModelReducer: BsUiReducer;
 export type AutorunReducer = Reducer<AutorunPlayerState>;
 export const enableBatching: (reduce: (state: AutorunPlayerState, action: AutorunModelBaseAction) => AutorunPlayerState) => AutorunReducer;
 export const autorunReducer: AutorunReducer;
-export const isValidBsUiModelState: (state: any) => boolean;
-export const isValidBsUiModelStateShallow: (state: any) => boolean;
 
-/** @module Model:template */
-/** @private */
-export const templateReducer: (state: BsUiModelTemplateState, action: BsUiModelBatchAction) => BsUiModelTemplateState;
-/** @private */
-export const isValidTemplateState: (state: any) => boolean;
-/** @private */
-export const isValidTemplateStateShallow: (state: any) => boolean;
-
-/** @module Model:templateProperty */
-/** @private */
-export const BSUIMODEL_UPDATE_TEMPLATE_PROPERTY: string;
-/** @private */
-export const BSUIMODEL_RESET_TEMPLATE_PROPERTY: string;
-/** @private */
-export type UpdateTemplatePropertyAction = BsUiModelAction<Partial<BsUiModelTemplatePropertyState>>;
-/** @private */
-export type ResetTemplatePropertyAction = BsUiModelAction<null>;
-/** @private */
-export const bsUiModelResetTemplateProperty: () => ResetTemplatePropertyAction;
-/** @private */
-export const bsUiModelUpdateTemplateColor: (color: BsUiModelTemplatePropertyColorState) => UpdateTemplatePropertyAction;
-/** @private */
-export const templatePropertyDefault: BsUiModelTemplatePropertyState;
-/** @private */
-export const templatePropertyReducer: (state: BsUiModelTemplatePropertyState | undefined, { type, payload }: (UpdateTemplatePropertyAction | ResetTemplatePropertyAction | ResetBsUiModelAction | BsUiModelAction<RehydrateBsUiModelParams>)) => BsUiModelTemplatePropertyState;
-/** @private */
-export const isValidColor: (state: any) => boolean;
-/** @private */
-export const isValidTemplatePropertyState: (state: any) => boolean;
-/** @private */
-export const isValidTemplatePropertyStateShallow: (state: any) => boolean;
-
-/** @module Model:template */
 export const ADD_HSM: string;
 export const UPDATE_HSM_PROPERTIES: string;
 export const SET_HSM_TOP: string;
@@ -334,22 +225,6 @@ export const updateScreenDimensions: (screenDimensions: Dimensions) => UpdatePre
 export const presentationDataDefaults: PresentationDataState;
 export const presentationDataReducer: (state: PresentationDataState | undefined, { type, payload }: (UpdatePresentationDataAction)) => PresentationDataState;
 
-/** @module Selector:base */
-/** @private */
-export const bsUiModelFilterBaseState: (state: any) => BsUiModelState;
-/** @private */
-export const bsUiModelGetBaseState: (state: BsUiModelState) => BsUiModelState;
-
-/** @module Selector:template */
-/** @private */
-export const bsUiModelGetTemplateState: (state: BsUiModelState) => BsUiModelTemplateState;
-
-/** @module Selector:templateProperty */
-/** @private */
-export const bsUiModelGetTemplatePropertyState: (state: BsUiModelState) => BsUiModelTemplatePropertyState;
-/** @private */
-export const bsUiModelGetTemplatePropertyColorState: (state: BsUiModelState) => BsUiModelTemplatePropertyColorState;
-
 export function getHsmMap(state: any): HsmMap;
 export function getHsmById(state: any, hsmId: string): Hsm;
 export function getHsmByName(state: AutorunState, hsmName: string): Hsm | null;
@@ -379,30 +254,6 @@ export function getFeedPoolFilePath(state: any, hashValue: string): string;
 export function feedPoolFileExists(state: any, hashValue: string): string;
 export function getFeedCacheRoot(state: any): string;
 
-/** @module Types:template */
-/** @private */
-export interface BsUiModelTemplateState {
-    readonly property: BsUiModelTemplatePropertyState;
-}
-/** @private */
-export const createTemplate: (property: BsUiModelTemplatePropertyState) => BsUiModelTemplateState;
-
-/** @private */
-export interface BsUiModelTemplatePropertyColorState {
-    a: number;
-    r: number;
-    g: number;
-    b: number;
-}
-/** @private */
-export interface BsUiModelTemplatePropertyState {
-    color: BsUiModelTemplatePropertyColorState;
-}
-/** @private */
-export const createTemplateProperty: (color: BsUiModelTemplatePropertyColorState) => BsUiModelTemplatePropertyState;
-/** @private */
-export const createBsColor: (r: number, g: number, b: number, a: number) => BsUiModelTemplatePropertyColorState;
-
 /** @module Types:base */
 export class RuntimeEnvironment {
     static BrightSign: string;
@@ -423,12 +274,6 @@ export interface AutorunPlayerState {
 export type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
-/** @private */
-export interface BsUiModelState {
-    template: BsUiModelTemplateState;
-}
-/** @private */
-export const createModel: (template: BsUiModelTemplateState) => BsUiModelState;
 export interface LUT {
     [key: string]: any;
 }

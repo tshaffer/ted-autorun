@@ -3,7 +3,6 @@
 import { DmState } from '@brightsign/bsdatamodel';
 import { BaContextModelState } from '@brightsign/ba-context-model';
 
-import { BsUiModelTemplateState } from './template';
 import { HsmState } from './hsm';
 import { PresentationDataState } from './presentation';
 import { PlaybackState } from './playback';
@@ -32,20 +31,6 @@ export interface AutorunPlayerState {
 /** @private */
 export type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
-};
-
-/** @internal */
-/** @private */
-export interface BsUiModelState {
-  template: BsUiModelTemplateState;
-}
-
-/** @internal */
-/** @private */
-export const createModel = (template: BsUiModelTemplateState): BsUiModelState => {
-  return {
-    template
-  };
 };
 
 export interface LUT { [key: string]: any; }

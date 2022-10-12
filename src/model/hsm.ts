@@ -1,5 +1,3 @@
-/** @module Model:template */
-
 import { combineReducers } from 'redux';
 
 import {

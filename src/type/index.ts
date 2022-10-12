@@ -1,7 +1,5 @@
 /** @module Types:index */
 
-export * from './template';
-export * from './templateProperty';
 export * from './base';
 export * from './hsm';
 export * from './hsmTypes';
